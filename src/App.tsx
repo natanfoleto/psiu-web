@@ -1,5 +1,9 @@
+import './main.css'
+
+import { SignIn } from './pages/sign-in'
+
 function App() {
-  return <h1>Hello world!</h1>
+  return <SignIn />
 }
 
 export default App
