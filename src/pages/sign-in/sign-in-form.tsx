@@ -41,17 +41,17 @@ export function SignInForm() {
             id="password"
             type={showPassword ? 'text' : 'password'}
             className="
-            w-full 
-            h-10 
-            rounded-md 
-            bg-transparent 
-            text-zinc-400 
-            text-sm border-2 
-            border-zinc-600 
-            outline-none 
-            px-4 
-            focus:border-yellow-500
-          "
+              w-full 
+              h-10 
+              rounded-md 
+              bg-transparent 
+              text-zinc-400 
+              text-sm border-2 
+              border-zinc-600 
+              outline-none 
+              px-4 
+              focus:border-yellow-500
+            "
           />
 
           {showPassword ? (
@@ -74,16 +74,16 @@ export function SignInForm() {
             type="checkbox"
             id="rememberMe"
             className="
-            appearance-none 
-            size-4 
-            border-2 
-            border-zinc-600 
-            rounded-sm 
-            checked:border-4 
-            checked:border-yellow-500 
-            checked:bg-zinc-950 
-            focus:outline-none
-          "
+              appearance-none 
+              size-4 
+              border-2 
+              border-zinc-600 
+              rounded-sm 
+              checked:border-4 
+              checked:border-yellow-500 
+              checked:bg-zinc-950 
+              focus:outline-none
+            "
           />
 
           <label htmlFor="rememberMe" className="text-zinc-400 text-xs">
