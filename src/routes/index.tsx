@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { AuthLayout } from '@/pages/_layouts/auth'
 import { Feed } from '@/pages/feed'
+import { Profile } from '@/pages/profile'
 import { SignIn } from '@/pages/sign-in'
 
 export const router = createBrowserRouter([
@@ -9,7 +11,17 @@ export const router = createBrowserRouter([
     element: <SignIn />,
   },
   {
-    path: '/feed',
-    element: <Feed />,
+    path: '/',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: '/feed',
+        element: <Feed />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
+      },
+    ],
   },
 ])
