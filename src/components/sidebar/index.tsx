@@ -11,7 +11,7 @@ import { SidebarLink } from './sidebar-link'
 
 export function Sidebar() {
   return (
-    <div className="h-screen w-64 flex flex-col justify-between bg-zinc-900 px-6 py-8">
+    <div className="h-screen w-80 flex flex-col justify-between bg-zinc-900 px-6 py-8">
       <div className="space-y-12">
         <div className="px-4">
           <h1 className="text-zinc-300 text-xl font-medium">Psiuuu!</h1>

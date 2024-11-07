@@ -2,6 +2,9 @@ import { Eye, EyeOff } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Button } from '@/components/button'
+import { Input } from '@/components/input'
+
 export function SignInForm() {
   const navigate = useNavigate()
 
@@ -24,11 +27,7 @@ export function SignInForm() {
           RA
         </label>
 
-        <input
-          id="ra"
-          type="text"
-          className="h-10 rounded-md bg-transparent text-zinc-400 text-sm border-2 border-zinc-600 outline-none px-4 focus:border-yellow-500"
-        />
+        <Input id="ra" type="text" />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -37,21 +36,10 @@ export function SignInForm() {
         </label>
 
         <div className="relative">
-          <input
+          <Input
             id="password"
             type={showPassword ? 'text' : 'password'}
-            className="
-              w-full 
-              h-10 
-              rounded-md 
-              bg-transparent 
-              text-zinc-400 
-              text-sm border-2 
-              border-zinc-600 
-              outline-none 
-              px-4 
-              focus:border-yellow-500
-            "
+            className="w-full"
           />
 
           {showPassword ? (
@@ -97,9 +85,9 @@ export function SignInForm() {
       </div>
 
       <div className="flex flex-col gap-3 items-center">
-        <button className="w-full bg-yellow-500 rounded-md font-semibold text-zinc-900 py-2">
+        <Button className="w-full font-semibold bg-yellow-500 text-zinc-900 py-2">
           ENTRAR
-        </button>
+        </Button>
 
         <a href="" className="text-yellow-500 text-xs hover:underline">
           Não tem uma conta? <span className="font-semibold">Fale aqui</span>
