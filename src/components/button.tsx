@@ -13,15 +13,11 @@ export function Button({ children, className = '', ...rest }: ButtonProps) {
         flex 
         items-center 
         justify-center
-        gap-2 
-        bg-zinc-900 
         text-zinc-300 
         text-sm 
         py-3 
         px-4 
         rounded-md 
-        transition-opacity 
-        hover:opacity-75
         ${className}
       `}
     >

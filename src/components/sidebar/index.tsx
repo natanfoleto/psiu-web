@@ -18,7 +18,7 @@ export function Sidebar() {
         </div>
 
         <nav className="space-y-2">
-          <SidebarLink href="/feed">
+          <SidebarLink href="/">
             <House />
             Página inicial
           </SidebarLink>

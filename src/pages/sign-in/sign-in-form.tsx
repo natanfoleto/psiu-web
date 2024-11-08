@@ -17,7 +17,7 @@ export function SignInForm() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    navigate('/feed')
+    navigate('/')
   }
 
   return (

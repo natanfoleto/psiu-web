@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import { AuthLayout } from '@/pages/_layouts/auth'
-import { Feed } from '@/pages/feed'
+import { Home } from '@/pages/home'
 import { Profile } from '@/pages/profile'
 import { SignIn } from '@/pages/sign-in'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/sign-in',
     element: <SignIn />,
   },
   {
@@ -15,8 +15,8 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       {
-        path: '/feed',
-        element: <Feed />,
+        path: '/',
+        element: <Home />,
       },
       {
         path: '/profile',
