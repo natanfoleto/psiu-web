@@ -12,11 +12,11 @@ export function ButtonNewPost({ className, ...rest }: ButtonNewPostProps) {
       className={`
         relative 
         size-16 
-        bg-zinc-300 
+        bg-zinc-200 
         border-2 
         border-zinc-950 
         ring-1 
-        ring-zinc-300 
+        ring-zinc-200 
         rounded-full 
         cursor-pointer
         ${className}

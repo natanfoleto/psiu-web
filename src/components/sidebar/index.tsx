@@ -7,6 +7,7 @@ import {
   Search,
 } from 'lucide-react'
 
+import { Avatar } from '../avatar'
 import { SidebarLink } from './sidebar-link'
 
 export function Sidebar() {
@@ -52,7 +53,7 @@ export function Sidebar() {
 
       <div>
         <SidebarLink href="/profile">
-          <div className="size-8 bg-zinc-300 rounded-full" />
+          <Avatar className="size-8" />
           Perfil
         </SidebarLink>
       </div>

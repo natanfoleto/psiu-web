@@ -1,6 +1,7 @@
 import { Grid3x3, LogOut, SquarePen } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
+import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/button'
 
 export function Profile() {
@@ -9,7 +10,7 @@ export function Profile() {
   return (
     <div className="w-full px-16 py-8 space-y-8">
       <div className="flex items-center gap-4">
-        <div className="bg-zinc-400 size-28 rounded-full" />
+        <Avatar className="size-28" />
 
         <div>
           <h1 className="text-zinc-200 font-medium">Natan Foleto</h1>
