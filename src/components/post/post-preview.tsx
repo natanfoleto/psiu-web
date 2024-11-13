@@ -4,6 +4,7 @@ import { Bookmark, Ellipsis, Heart, MessageCircle, X } from 'lucide-react'
 import { type FormEvent, useRef, useState } from 'react'
 
 import { Avatar } from '../avatar'
+import { Comment } from './comment'
 
 interface PostPreviewProps {
   open: boolean
@@ -66,7 +67,10 @@ export function PostPreview({ open, setOpen }: PostPreviewProps) {
               <Ellipsis className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400" />
             </div>
 
-            <div className="flex-1 border-b-[1px] border-zinc-900"></div>
+            <div className="space-y-8 flex-1 border-b-[1px] border-zinc-900 p-6">
+              <Comment />
+              <Comment />
+            </div>
 
             <div className="flex items-center justify-between border-b-[1px] border-zinc-900 p-4">
               <div className="flex items-center gap-2 text-zinc-400">
