@@ -67,7 +67,10 @@ export function PostPreview({ open, setOpen }: PostPreviewProps) {
               <Ellipsis className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400" />
             </div>
 
-            <div className="space-y-8 flex-1 border-b-[1px] border-zinc-900 p-6">
+            <div
+              className="overflow-y-scroll space-y-8 flex-1 border-b-[1px] border-zinc-900 p-6"
+              style={{ maxHeight: 'calc(100vh - 258px)' }}
+            >
               <Comment />
               <Comment />
             </div>
