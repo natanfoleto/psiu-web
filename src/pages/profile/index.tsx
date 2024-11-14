@@ -7,10 +7,12 @@ import { Button } from '@/components/button'
 export function Profile() {
   const navigate = useNavigate()
 
+  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+
   return (
     <div className="w-full px-16 py-8 space-y-8">
       <div className="flex items-center gap-4">
-        <Avatar className="size-28" />
+        <Avatar src={avatar} className="size-28 bg-zinc-200" />
 
         <div>
           <h1 className="text-zinc-200 font-medium">Natan Foleto</h1>

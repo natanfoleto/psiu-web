@@ -6,19 +6,22 @@ interface ButtonNewPostProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function ButtonNewPost({ className, ...rest }: ButtonNewPostProps) {
+  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+
   return (
     <button
       {...rest}
       className={`
         relative 
         size-16 
-        bg-zinc-200 
         border-2 
         border-zinc-950 
         ring-1 
         ring-zinc-200 
         rounded-full 
         cursor-pointer
+        bg-zinc-200
+        bg-[url('${avatar}')]
         ${className}
       `}
     >

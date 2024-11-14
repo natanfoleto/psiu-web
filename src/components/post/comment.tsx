@@ -1,9 +1,29 @@
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import { Avatar } from '../avatar'
+import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import { getRandomAdjective } from '@/utils/get-random-adjective'
 
-export function Comment() {
+import { Avatar } from '../avatar'
+import type { Reaction } from '.'
+
+export interface CommentProps {
+  id: string
+  postId: string
+  content: string
+  commentedAt: string
+  updatedAt: string | null
+  reactions: Reaction[]
+}
+
+export function Comment({
+  content,
+  commentedAt,
+  updatedAt,
+  reactions,
+}: CommentProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isOverflowing, setIsOverflowing] = useState(false)
 
@@ -19,10 +39,16 @@ export function Comment() {
     }
   }, [])
 
+  const colors =
+    TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)]
+
+  const adjective = getRandomAdjective()
+  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`
+
   return (
     <div className="grid grid-cols-12 items-center gap-3">
       <div className="col-span-11 flex items-start gap-3">
-        <Avatar className="min-w-10 min-h-10" />
+        <Avatar src={avatar} className={`w-10 h-10 ${colors.bg_color}`} />
 
         <div>
           <p
@@ -35,19 +61,9 @@ export function Comment() {
             `}
           >
             <span className="text-zinc-300 text-sm font-semibold mr-2">
-              natanfoleto
+              {adjective}
             </span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Consequatur blanditiis
-            eum omnis, earum dicta eligendi eius repellat magnam aspernatur
-            consequuntur quae, cum itaque est vitae facilis voluptatibus saepe
-            illum ipsam? Lorem, ipsum dolor sit amet consectetur adipisicing
-            elit. Voluptate, harum! Quod, libero quo mollitia ab recusandae quia
-            odit expedita enim voluptatum modi aspernatur, eveniet suscipit?
-            Totam eveniet quo esse in? Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Placeat quasi, maxime aliquid doloribus at
-            suscipit in illum debitis repellat quas iusto! A explicabo nam,
-            ducimus dignissimos magnam suscipit nostrum quidem!
+            {content}
           </p>
 
           {isOverflowing && (
@@ -66,10 +82,15 @@ export function Comment() {
           )}
 
           <div className="space-x-3 text-zinc-500 text-xs font-medium mt-2">
-            <time>2sem</time>
+            <time>
+              {formatDistanceToNow(updatedAt || commentedAt, {
+                locale: ptBR,
+              })}{' '}
+              {updatedAt && '(editado)'}
+            </time>
 
             <span className="cursor-pointer transition-colors hover:text-zinc-300">
-              13 reações
+              {reactions.length} reações
             </span>
           </div>
         </div>

@@ -5,7 +5,5 @@ interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 }
 
 export function Avatar({ className = '', ...rest }: AvatarProps) {
-  return (
-    <img {...rest} alt="" className={`bg-zinc-200 rounded-full ${className}`} />
-  )
+  return <img {...rest} alt="" className={`rounded-full ${className}`} />
 }

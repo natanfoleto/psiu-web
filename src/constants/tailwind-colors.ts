@@ -21,8 +21,6 @@ export const TAILWIND_COLORS = [
   { bg_color: 'bg-zinc-500', text_color: 'text-zinc-950' },
   { bg_color: 'bg-zinc-600', text_color: 'text-zinc-300' },
   { bg_color: 'bg-zinc-700', text_color: 'text-zinc-300' },
-  { bg_color: 'bg-zinc-800', text_color: 'text-zinc-300' },
-  { bg_color: 'bg-zinc-900', text_color: 'text-zinc-300' },
   { bg_color: 'bg-neutral-200', text_color: 'text-zinc-950' },
   { bg_color: 'bg-neutral-300', text_color: 'text-zinc-950' },
   { bg_color: 'bg-neutral-400', text_color: 'text-zinc-950' },
