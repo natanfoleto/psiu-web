@@ -24,6 +24,7 @@ export function ButtonNewPost({ className, ...rest }: ButtonNewPostProps) {
         bg-[url('${avatar}')]
         ${className}
       `}
+      style={{ backgroundImage: `url(${avatar})` }}
     >
       <div
         className="

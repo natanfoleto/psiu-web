@@ -7,12 +7,16 @@ import { Button } from '@/components/button'
 export function Profile() {
   const navigate = useNavigate()
 
-  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+  const avatar = 'https://apia.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
 
   return (
     <div className="w-full px-16 py-8 space-y-8">
       <div className="flex items-center gap-4">
-        <Avatar src={avatar} className="size-28 bg-zinc-200" />
+        <Avatar
+          src={avatar}
+          name="Natan Foleto"
+          className="size-28 bg-zinc-200 text-zinc-800 text-5xl font-medium"
+        />
 
         <div>
           <h1 className="text-zinc-200 font-medium">Natan Foleto</h1>

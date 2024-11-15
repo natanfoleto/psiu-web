@@ -55,7 +55,12 @@ export function Sidebar() {
 
       <div>
         <SidebarLink href="/profile">
-          <Avatar src={avatar} className="size-8 bg-zinc-200" />
+          <Avatar
+            src={avatar}
+            name="Natan Foleto"
+            className="size-8 bg-zinc-200"
+            onError={(e) => console.log(e)}
+          />
           Perfil
         </SidebarLink>
       </div>
