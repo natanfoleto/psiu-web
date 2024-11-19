@@ -60,15 +60,25 @@ export function Post({
   }
 
   function handleMouseMove() {
+    if (!modalReaction) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+
+      // Configura o timeout para abrir o modal após 500ms
+      timeoutRef.current = setTimeout(() => {
+        setModalReaction(true)
+      }, 500)
+    }
+  }
+
+  function handleMouseLeave() {
     if (modalReaction) setModalReaction(false)
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
     }
-
-    timeoutRef.current = setTimeout(() => {
-      setModalReaction(true)
-    }, 500)
   }
 
   useEffect(() => {
@@ -90,8 +100,8 @@ export function Post({
 
   return (
     <div>
-      <div className="w-[432px] space-y-3">
-        <div className="flex items-center justify-between">
+      <div className="w-[432px] space-y-0">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <Avatar
               src={avatar}
@@ -122,11 +132,12 @@ export function Post({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-zinc-400">
-            <div className="relative">
-              <Heart
-                onMouseMove={handleMouseMove}
-                className="size-5 cursor-pointer transition-opacity hover:opacity-50"
-              />
+            <div
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              className="relative py-3"
+            >
+              <Heart className="size-5 cursor-pointer transition-opacity hover:opacity-50" />
 
               <Reaction
                 open={modalReaction}

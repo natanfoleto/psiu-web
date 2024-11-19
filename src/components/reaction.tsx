@@ -13,7 +13,7 @@ export function Reaction({ open, onClose }: ReactionProps) {
       <div
         className="
           absolute 
-          -top-12 
+          -top-10 
           left-1/2 
           -translate-x-1/2 
           flex 
