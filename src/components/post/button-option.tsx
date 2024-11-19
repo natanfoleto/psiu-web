@@ -18,7 +18,6 @@ export function ButtonOption({
         w-full
         py-4
         text-sm
-        text-zinc-300
         border-t-[1px]
         first:border-t-0
         border-zinc-700

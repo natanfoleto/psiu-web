@@ -35,6 +35,7 @@ export function Options({ open, setOpen }: OptionsProps) {
           </ButtonOption>
 
           <ButtonOption
+            className="text-zinc-300"
             onClick={() => {
               //
             }}
@@ -43,6 +44,7 @@ export function Options({ open, setOpen }: OptionsProps) {
           </ButtonOption>
 
           <ButtonOption
+            className="text-zinc-300"
             onClick={() => {
               //
             }}
@@ -50,7 +52,9 @@ export function Options({ open, setOpen }: OptionsProps) {
             Copiar link
           </ButtonOption>
 
-          <ButtonOption onClick={setOpen}>Cancelar</ButtonOption>
+          <ButtonOption className="text-zinc-300" onClick={setOpen}>
+            Cancelar
+          </ButtonOption>
         </div>
       </div>
     )

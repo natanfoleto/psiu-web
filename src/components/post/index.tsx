@@ -1,16 +1,16 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Bookmark, Ellipsis, Heart, MessageCircle } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Bookmark, Ellipsis, MessageCircle } from 'lucide-react'
+import { useMemo, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
 import { Avatar } from '../avatar'
-import { Reaction } from '../reaction'
 import type { CommentProps } from './comment'
 import { Options } from './options'
 import { PostPreview } from './post-preview'
+import { Reaction } from './reaction'
 
 export enum EnumTypeReaction {
   APOIO,
@@ -46,10 +46,6 @@ export function Post({
 }: PostProps) {
   const [modalPreview, setModalPreview] = useState(false)
   const [modalOptions, setModalOptions] = useState(false)
-  const [modalReaction, setModalReaction] = useState(false)
-
-  // const [isMouseResting, setIsMouseResting] = useState(false)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   function handleModalPreview() {
     setModalPreview(!modalPreview)
@@ -58,34 +54,6 @@ export function Post({
   function handleModalOptions() {
     setModalOptions(!modalOptions)
   }
-
-  function handleMouseMove() {
-    if (!modalReaction) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-
-      // Configura o timeout para abrir o modal após 500ms
-      timeoutRef.current = setTimeout(() => {
-        setModalReaction(true)
-      }, 500)
-    }
-  }
-
-  function handleMouseLeave() {
-    if (modalReaction) setModalReaction(false)
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-      timeoutRef.current = null
-    }
-  }
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    }
-  }, [])
 
   const colors = useMemo(
     () => TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)],
@@ -132,18 +100,7 @@ export function Post({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-zinc-400">
-            <div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              className="relative py-3"
-            >
-              <Heart className="size-5 cursor-pointer transition-opacity hover:opacity-50" />
-
-              <Reaction
-                open={modalReaction}
-                onClose={() => setModalReaction(false)}
-              />
-            </div>
+            <Reaction />
 
             <MessageCircle
               onClick={handleModalPreview}
