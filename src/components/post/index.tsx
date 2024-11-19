@@ -1,13 +1,15 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Bookmark, Ellipsis, Heart, MessageCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
 import { Avatar } from '../avatar'
+import { Reaction } from '../reaction'
 import type { CommentProps } from './comment'
+import { Options } from './options'
 import { PostPreview } from './post-preview'
 
 export enum EnumTypeReaction {
@@ -43,16 +45,48 @@ export function Post({
   reactions,
 }: PostProps) {
   const [modalPreview, setModalPreview] = useState(false)
+  const [modalOptions, setModalOptions] = useState(false)
+  const [modalReaction, setModalReaction] = useState(false)
+
+  // const [isMouseResting, setIsMouseResting] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   function handleModalPreview() {
     setModalPreview(!modalPreview)
   }
 
-  const colors =
-    TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)]
+  function handleModalOptions() {
+    setModalOptions(!modalOptions)
+  }
 
-  const adjective = getRandomAdjective()
-  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`
+  function handleMouseMove() {
+    if (modalReaction) setModalReaction(false)
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setModalReaction(true)
+    }, 500)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
+  const colors = useMemo(
+    () => TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)],
+    [],
+  )
+
+  const adjective = useMemo(() => getRandomAdjective(), [])
+  const avatar = useMemo(
+    () => `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`,
+    [adjective],
+  )
 
   return (
     <div>
@@ -74,7 +108,10 @@ export function Post({
             </time>
           </div>
 
-          <Ellipsis className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400" />
+          <Ellipsis
+            onClick={handleModalOptions}
+            className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400"
+          />
         </div>
 
         <div
@@ -85,7 +122,18 @@ export function Post({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-zinc-400">
-            <Heart className="size-5 cursor-pointer transition-opacity hover:opacity-50" />
+            <div className="relative">
+              <Heart
+                onMouseMove={handleMouseMove}
+                className="size-5 cursor-pointer transition-opacity hover:opacity-50"
+              />
+
+              <Reaction
+                open={modalReaction}
+                onClose={() => setModalReaction(false)}
+              />
+            </div>
+
             <MessageCircle
               onClick={handleModalPreview}
               className="size-5 cursor-pointer transition-opacity hover:opacity-50"
@@ -103,6 +151,8 @@ export function Post({
         open={modalPreview}
         setOpen={handleModalPreview}
       />
+
+      <Options open={modalOptions} setOpen={handleModalOptions} />
     </div>
   )
 }

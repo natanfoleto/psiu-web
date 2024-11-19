@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Heart } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
@@ -39,11 +39,16 @@ export function Comment({
     }
   }, [])
 
-  const colors =
-    TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)]
+  const colors = useMemo(
+    () => TAILWIND_COLORS[Math.floor(Math.random() * TAILWIND_COLORS.length)],
+    [],
+  )
 
-  const adjective = getRandomAdjective()
-  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`
+  const adjective = useMemo(() => getRandomAdjective(), [])
+  const avatar = useMemo(
+    () => `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`,
+    [adjective],
+  )
 
   return (
     <div className="grid grid-cols-12 items-center gap-3">

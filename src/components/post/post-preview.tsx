@@ -6,6 +6,7 @@ import { type FormEvent, useRef, useState } from 'react'
 import { Avatar } from '../avatar'
 import type { PostProps } from '.'
 import { Comment } from './comment'
+import { Options } from './options'
 
 interface PostPreviewProps {
   post: PostProps
@@ -26,8 +27,13 @@ export function PostPreview({
   setOpen,
 }: PostPreviewProps) {
   const [comment, setComment] = useState('')
+  const [modalOptions, setModalOptions] = useState(false)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
+
+  function handleModalOptions() {
+    setModalOptions(!modalOptions)
+  }
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -74,7 +80,10 @@ export function PostPreview({
                 </div>
               </div>
 
-              <Ellipsis className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400" />
+              <Ellipsis
+                onClick={handleModalOptions}
+                className="text-zinc-500 size-5 cursor-pointer transition-colors hover:text-zinc-400"
+              />
             </div>
 
             <div
@@ -124,6 +133,8 @@ export function PostPreview({
               </button>
             </form>
           </div>
+
+          <Options open={modalOptions} setOpen={handleModalOptions} />
         </div>
       </div>
     )

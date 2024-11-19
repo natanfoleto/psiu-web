@@ -7,7 +7,7 @@ import { Button } from '@/components/button'
 export function Profile() {
   const navigate = useNavigate()
 
-  const avatar = 'https://apia.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
 
   return (
     <div className="w-full px-16 py-8 space-y-8">
