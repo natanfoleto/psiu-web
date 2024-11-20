@@ -1,10 +1,25 @@
 import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-export function Reaction() {
+interface ReactionProps {
+  className?: string
+  position?: 'top' | 'left'
+}
+
+export function Reaction({ className = '', position = 'top' }: ReactionProps) {
   const [open, setOpen] = useState(false)
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const positionReaction =
+    position === 'top'
+      ? '-top-10 left-1/2 -translate-x-1/2'
+      : position === 'left'
+        ? '-top-1/2 -left-0 -translate-x-full'
+        : ''
+
+  const paddingReaction =
+    position === 'top' ? 'py-3' : position === 'left' ? 'px-3' : ''
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -41,25 +56,25 @@ export function Reaction() {
     <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative py-3"
+      className={`relative ${paddingReaction}`}
     >
-      <Heart className="size-5 cursor-pointer transition-opacity hover:opacity-50" />
+      <Heart
+        className={`cursor-pointer transition-opacity hover:opacity-50 ${className}`}
+      />
 
       {open && (
         <div
-          className="
-          absolute 
-          -top-10 
-          left-1/2 
-          -translate-x-1/2 
-          flex 
-          items-center
-          gap-2
-          rounded-md 
-          p-2
-          bg-zinc-700
-          animate-slide-up
-        "
+          className={`
+            absolute 
+            ${positionReaction}
+            flex 
+            items-center
+            gap-2
+            rounded-md 
+            p-2
+            bg-zinc-700
+            
+          `}
         >
           <button onClick={handleClose} className="hover:scale-[132.5%]">
             ❤️

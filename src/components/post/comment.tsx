@@ -1,13 +1,13 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Heart } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
 import { Avatar } from '../avatar'
-import type { Reaction } from '.'
+import type { Reaction as ReactionType } from '.'
+import { Reaction } from './reaction'
 
 export interface CommentProps {
   id: string
@@ -15,7 +15,7 @@ export interface CommentProps {
   content: string
   commentedAt: string
   updatedAt: string | null
-  reactions: Reaction[]
+  reactions: ReactionType[]
 }
 
 export function Comment({
@@ -101,7 +101,7 @@ export function Comment({
         </div>
       </div>
 
-      <Heart className="col-span-1 size-4 text-zinc-300 cursor-pointer transition-opacity hover:opacity-50" />
+      <Reaction position="left" className="size-4 text-zinc-400" />
     </div>
   )
 }
