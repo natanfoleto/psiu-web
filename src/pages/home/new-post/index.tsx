@@ -18,7 +18,7 @@ export function NewPost() {
       {open && (
         <div
           onClick={handleClose}
-          className="absolute inset-0 flex justify-center bg-black/25 py-24"
+          className="absolute inset-0 z-10 flex justify-center bg-black/25 py-24"
         >
           <div
             onClick={(e) => e.stopPropagation()}

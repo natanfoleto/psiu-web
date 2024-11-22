@@ -1,12 +1,18 @@
+import { HTTPError } from 'ky'
 import { Eye, EyeOff } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
+import { authenticateWithPassword } from '@/http/auth/authenticate-with-password'
 
 export function SignInForm() {
   const navigate = useNavigate()
+
+  const [ra, setRa] = useState('')
+  const [password, setPassword] = useState('')
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -14,10 +20,31 @@ export function SignInForm() {
     setShowPassword(!showPassword)
   }
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    navigate('/')
+    try {
+      const { result, message, data } = await authenticateWithPassword({
+        ra,
+        password,
+      })
+
+      console.log({ result, message, data })
+
+      if (result === 'success') {
+        toast.success(message)
+
+        // Setar o token nos cookies
+
+        navigate('/')
+      }
+    } catch (error) {
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json()
+
+        toast.error(message)
+      }
+    }
   }
 
   return (
@@ -27,7 +54,12 @@ export function SignInForm() {
           RA
         </label>
 
-        <Input id="ra" type="text" />
+        <Input
+          id="ra"
+          value={ra}
+          onChange={(e) => setRa(e.target.value)}
+          type="text"
+        />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -38,6 +70,8 @@ export function SignInForm() {
         <div className="relative">
           <Input
             id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type={showPassword ? 'text' : 'password'}
             className="w-full"
           />
