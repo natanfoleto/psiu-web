@@ -1,12 +1,10 @@
 import { Grid3x3, LogOut, SquarePen } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
 
 import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/button'
 import { useAuth } from '@/contexts/auth'
 
 export function Profile() {
-  const navigate = useNavigate()
   const { signOut } = useAuth()
 
   const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
@@ -32,8 +30,8 @@ export function Profile() {
           Editar perfil
         </Button>
 
-        <Button onClick={() => navigate('/sign-in')} className="bg-zinc-900">
-          <LogOut onClick={signOut} className="size-4 mr-2" />
+        <Button onClick={signOut} className="bg-zinc-900">
+          <LogOut className="size-4 mr-2" />
           Sair
         </Button>
       </div>
