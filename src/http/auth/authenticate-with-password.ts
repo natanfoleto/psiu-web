@@ -1,23 +1,24 @@
 import { api } from '../api-client'
 
-interface AuthenticateWithPasswordRequest {
+export interface Student {
+  id: string
+  ra: string
+  name: string
+  birthdate: string
+  createdAt: string
+  updatedAt: string | null
+}
+
+export interface AuthenticateWithPasswordRequest {
   ra: string
   password: string
 }
 
-interface AuthenticateWithPasswordResponse {
+export interface AuthenticateWithPasswordResponse {
   result: 'success' | 'error'
   message?: string
   data?: {
-    token: string
-    student: {
-      id: string
-      ra: string
-      name: string
-      birthdate: string
-      createdAt: string
-      updatedAt: string | null
-    }
+    student: Student
   }
 }
 

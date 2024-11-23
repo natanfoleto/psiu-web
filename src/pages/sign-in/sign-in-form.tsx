@@ -6,10 +6,12 @@ import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
 import { Input } from '@/components/input'
+import { useAuth } from '@/contexts/auth'
 import { authenticateWithPassword } from '@/http/auth/authenticate-with-password'
 
 export function SignInForm() {
   const navigate = useNavigate()
+  const { handleStudent } = useAuth()
 
   const [ra, setRa] = useState('')
   const [password, setPassword] = useState('')
@@ -29,16 +31,17 @@ export function SignInForm() {
         password,
       })
 
-      console.log({ result, message, data })
-
       if (result === 'success') {
-        toast.success(message)
+        if (data) {
+          handleStudent(data.student)
 
-        // Setar o token nos cookies
-
-        navigate('/')
+          toast.success(message)
+          navigate('/')
+        }
       }
     } catch (error) {
+      console.log(error)
+
       if (error instanceof HTTPError) {
         const { message } = await error.response.json()
 

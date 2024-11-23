@@ -22,4 +22,5 @@ export const api = ky.create({
   hooks: {
     beforeRequest: [beforeRequest],
   },
+  credentials: 'include',
 })
