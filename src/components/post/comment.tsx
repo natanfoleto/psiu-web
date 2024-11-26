@@ -3,26 +3,18 @@ import { ptBR } from 'date-fns/locale'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import type { IComment } from '@/http/comments/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
 import { Avatar } from '../avatar'
-import type { Reaction as ReactionType } from '.'
 import { Reaction } from './reaction'
 
 export interface CommentProps {
-  id: string
-  postId: string
-  content: string
-  commentedAt: string
-  updatedAt: string | null
-  reactions: ReactionType[]
+  comment: IComment
 }
 
 export function Comment({
-  content,
-  commentedAt,
-  updatedAt,
-  reactions,
+  comment: { content, commentedAt, updatedAt, reactions },
 }: CommentProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isOverflowing, setIsOverflowing] = useState(false)

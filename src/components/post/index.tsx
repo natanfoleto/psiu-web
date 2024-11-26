@@ -4,45 +4,20 @@ import { Bookmark, Ellipsis, MessageCircle } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import type { IPost } from '@/http/posts/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
 import { Avatar } from '../avatar'
-import type { CommentProps } from './comment'
 import { Options } from './options'
 import { PostPreview } from './post-preview'
 import { Reaction } from './reaction'
 
-export enum EnumTypeReaction {
-  APOIO,
-  ENTENDO_VOCE,
-  FORCA,
-  TRISTEZA,
-  ESTAMOS_JUNTOS,
-}
-
-export interface Reaction {
-  id: string
-  postId: string
-  type: EnumTypeReaction
-  reactedAt: string
-}
-
 export interface PostProps {
-  id: string
-  content: string
-  publishedAt: string
-  updatedAt: string | null
-  comments: CommentProps[]
-  reactions: Reaction[]
+  post: IPost
 }
 
 export function Post({
-  id,
-  content,
-  publishedAt,
-  updatedAt,
-  comments,
-  reactions,
+  post: { id, content, publishedAt, updatedAt, comments, reactions },
 }: PostProps) {
   const [modalPreview, setModalPreview] = useState(false)
   const [modalOptions, setModalOptions] = useState(false)

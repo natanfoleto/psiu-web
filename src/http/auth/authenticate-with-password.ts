@@ -26,7 +26,7 @@ export async function authenticateWithPassword({
   ra,
   password,
 }: AuthenticateWithPasswordRequest) {
-  const result = await api
+  const response = await api
     .post('authenticate/password', {
       json: {
         ra,
@@ -35,5 +35,5 @@ export async function authenticateWithPassword({
     })
     .json<AuthenticateWithPasswordResponse>()
 
-  return result
+  return response
 }

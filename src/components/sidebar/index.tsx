@@ -7,10 +7,14 @@ import {
   Search,
 } from 'lucide-react'
 
+import { useAuth } from '@/contexts/auth'
+
 import { Avatar } from '../avatar'
 import { SidebarLink } from './sidebar-link'
 
 export function Sidebar() {
+  const { student } = useAuth()
+
   const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
 
   return (
@@ -61,7 +65,8 @@ export function Sidebar() {
             className="size-8 bg-zinc-200"
             onError={(e) => console.log(e)}
           />
-          Perfil
+
+          {student?.name || 'Perfil'}
         </SidebarLink>
       </div>
     </div>

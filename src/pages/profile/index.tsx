@@ -5,7 +5,7 @@ import { Button } from '@/components/button'
 import { useAuth } from '@/contexts/auth'
 
 export function Profile() {
-  const { signOut } = useAuth()
+  const { student, signOut } = useAuth()
 
   const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
 
@@ -19,8 +19,8 @@ export function Profile() {
         />
 
         <div>
-          <h1 className="text-zinc-200 font-medium">Natan Foleto</h1>
-          <p className="text-zinc-400 text-sm">RA2017193635</p>
+          <h1 className="text-zinc-200 font-medium">{student?.name}</h1>
+          <p className="text-zinc-400 text-sm">{student?.ra}</p>
         </div>
       </div>
 

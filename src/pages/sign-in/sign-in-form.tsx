@@ -1,5 +1,5 @@
 import { HTTPError } from 'ky'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -16,6 +16,7 @@ export function SignInForm() {
   const [ra, setRa] = useState('')
   const [password, setPassword] = useState('')
 
+  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   function handleShowPassword() {
@@ -23,6 +24,8 @@ export function SignInForm() {
   }
 
   async function handleSubmit(event: FormEvent) {
+    setLoading(true)
+
     event.preventDefault()
 
     try {
@@ -47,6 +50,8 @@ export function SignInForm() {
 
         toast.error(message)
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -123,7 +128,7 @@ export function SignInForm() {
 
       <div className="flex flex-col gap-3 items-center">
         <Button className="w-full font-semibold bg-yellow-500 text-zinc-900 py-2">
-          ENTRAR
+          {loading ? <Loader className="size-5 animate-spin" /> : 'ENTRAR'}
         </Button>
 
         <a href="" className="text-yellow-500 text-xs hover:underline">

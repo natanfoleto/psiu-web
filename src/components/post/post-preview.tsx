@@ -3,14 +3,15 @@ import { ptBR } from 'date-fns/locale'
 import { Bookmark, Ellipsis, MessageCircle, X } from 'lucide-react'
 import { type FormEvent, useRef, useState } from 'react'
 
+import type { IPost } from '@/http/posts/types'
+
 import { Avatar } from '../avatar'
-import type { PostProps } from '.'
 import { Comment } from './comment'
 import { Options } from './options'
 import { Reaction } from './reaction'
 
 interface PostPreviewProps {
-  post: PostProps
+  post: IPost
   user?: {
     name: string
     avatar: string
@@ -94,27 +95,36 @@ export function PostPreview({
               {post.comments.map((comment) => (
                 <Comment
                   key={comment.id}
-                  id={comment.id}
-                  postId={comment.postId}
-                  content={comment.content}
-                  commentedAt={comment.commentedAt}
-                  updatedAt={comment.updatedAt}
-                  reactions={comment.reactions}
+                  comment={{
+                    id: comment.id,
+                    postId: comment.postId,
+                    content: comment.content,
+                    commentedAt: comment.commentedAt,
+                    updatedAt: comment.updatedAt,
+                    reactions: comment.reactions,
+                  }}
                 />
               ))}
             </div>
 
-            <div className="flex items-center justify-between border-b-[1px] border-zinc-900 p-4">
-              <div className="flex items-center gap-2 text-zinc-400">
-                <Reaction className="size-5" />
+            <div className="border-b-[1px] border-zinc-900 p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-zinc-400">
+                  <Reaction className="size-5" />
 
-                <MessageCircle
-                  onClick={() => inputRef.current?.focus()}
-                  className="size-5 cursor-pointer transition-opacity hover:opacity-50"
-                />
+                  <MessageCircle
+                    onClick={() => inputRef.current?.focus()}
+                    className="size-5 cursor-pointer transition-opacity hover:opacity-50"
+                  />
+                </div>
+
+                <Bookmark className="size-5 text-zinc-400 cursor-pointer transition-opacity hover:opacity-50" />
               </div>
 
-              <Bookmark className="size-5 text-zinc-400 cursor-pointer transition-opacity hover:opacity-50" />
+              <p className="text-xs text-zinc-400 cursor-pointer hover:underline">
+                <strong>{post.reactions.length}</strong> pessoas reagiram essa
+                publicação
+              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="flex items-center">
