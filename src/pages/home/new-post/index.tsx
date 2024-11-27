@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { HTTPError } from 'ky'
+import { type FormEvent, useState } from 'react'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
+import { createPost } from '@/http/posts/create-post'
 
 import { ButtonNewPost } from './button-new-post'
 
@@ -10,6 +13,27 @@ export function NewPost() {
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+
+    try {
+      const { result, message } = await createPost({ content })
+
+      if (result === 'success') {
+        toast.success(message)
+        handleClose()
+      }
+    } catch (error) {
+      console.log(error)
+
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json()
+
+        toast.error(message)
+      }
+    }
+  }
 
   return (
     <div>
@@ -30,7 +54,10 @@ export function NewPost() {
               </h1>
             </div>
 
-            <form className="h-full flex flex-col justify-between bg-zinc-800 rounded-lg">
+            <form
+              onSubmit={handleSubmit}
+              className="h-full flex flex-col justify-between bg-zinc-800 rounded-lg"
+            >
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}

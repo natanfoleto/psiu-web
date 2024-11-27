@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react'
-
 import { Post } from '@/components/post'
-import { getPosts } from '@/http/posts/get-posts'
-import type { IPost } from '@/http/posts/types'
+import { usePost } from '@/contexts/post'
 
 import { NewPost } from './new-post'
 
 export function Home() {
-  const [posts, setPosts] = useState<IPost[]>([])
-
-  useEffect(() => {
-    async function fetch() {
-      const { result, data } = await getPosts()
-
-      if (result === 'success') {
-        if (data) setPosts(data)
-      }
-    }
-
-    fetch()
-  }, [])
+  const { posts } = usePost()
 
   return (
     <div className="h-screen w-full px-16 py-8 space-y-12 overflow-y-auto">

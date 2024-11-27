@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { PostProvider } from '@/contexts/post'
 import { AuthLayout } from '@/pages/_layouts/auth'
 import { Home } from '@/pages/home'
 import { Profile } from '@/pages/profile'
@@ -27,7 +28,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: (
+          <PostProvider>
+            <Home />
+          </PostProvider>
+        ),
       },
       {
         path: '/profile',
