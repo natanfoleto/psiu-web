@@ -75,7 +75,7 @@ export function Post({
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-zinc-400">
-            <Reaction className="size-5" />
+            <Reaction postId={id} className="size-5" />
 
             <MessageCircle
               onClick={handleModalPreview}

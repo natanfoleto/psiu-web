@@ -1,10 +1,10 @@
 import { api } from '../api-client'
 
-interface CreatePostRequest {
+export interface CreatePostRequest {
   content: string
 }
 
-interface CreatePostResponse {
+export interface CreatePostResponse {
   result: 'success' | 'error'
   message?: string
 }

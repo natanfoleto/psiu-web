@@ -5,7 +5,7 @@ import { Bookmark, Ellipsis, MessageCircle, X } from 'lucide-react'
 import { type FormEvent, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { createComment } from '@/http/comments/create-comment'
+import { usePost } from '@/contexts/post'
 import type { IPost } from '@/http/posts/types'
 
 import { Avatar } from '../avatar'
@@ -31,6 +31,8 @@ export function PostPreview({
   open,
   setOpen,
 }: PostPreviewProps) {
+  const { onCreateComment } = usePost()
+
   const [comment, setComment] = useState('')
   const [modalOptions, setModalOptions] = useState(false)
 
@@ -44,7 +46,7 @@ export function PostPreview({
     event.preventDefault()
 
     try {
-      const { result, message } = await createComment({
+      const { result, message } = await onCreateComment({
         postId: post.id,
         content: comment,
       })

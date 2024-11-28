@@ -3,11 +3,13 @@ import { type FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
-import { createPost } from '@/http/posts/create-post'
+import { usePost } from '@/contexts/post'
 
 import { ButtonNewPost } from './button-new-post'
 
 export function NewPost() {
+  const { onCreatePost } = usePost()
+
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState('')
 
@@ -18,11 +20,11 @@ export function NewPost() {
     event.preventDefault()
 
     try {
-      const { result, message } = await createPost({ content })
+      const { result, message } = await onCreatePost({ content })
 
       if (result === 'success') {
-        toast.success(message)
         handleClose()
+        toast.success(message)
       }
     } catch (error) {
       console.log(error)
@@ -30,7 +32,7 @@ export function NewPost() {
       if (error instanceof HTTPError) {
         const { message } = await error.response.json()
 
-        toast.error(message)
+        return { result: 'error', message }
       }
     }
   }

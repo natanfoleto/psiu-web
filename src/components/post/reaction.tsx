@@ -1,12 +1,26 @@
+import { HTTPError } from 'ky'
 import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
+
+import { usePost } from '@/contexts/post'
+import { EnumTypeReaction } from '@/http/reactions/types'
 
 interface ReactionProps {
   className?: string
   position?: 'top' | 'left'
+  postId?: string
+  commentId?: string
 }
 
-export function Reaction({ className = '', position = 'top' }: ReactionProps) {
+export function Reaction({
+  className = '',
+  position = 'top',
+  postId,
+  commentId,
+}: ReactionProps) {
+  const { onCreatePostReaction } = usePost()
+
   const [open, setOpen] = useState(false)
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -52,6 +66,28 @@ export function Reaction({ className = '', position = 'top' }: ReactionProps) {
     }
   }, [])
 
+  async function handleReact(type: EnumTypeReaction) {
+    try {
+      if (postId) {
+        const { result } = await onCreatePostReaction({ postId, type })
+
+        if (result === 'success') handleClose()
+      }
+
+      if (commentId) {
+        // Cria a reação do comentrário
+      }
+    } catch (error) {
+      console.log(error)
+
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json()
+
+        toast.error(message)
+      }
+    }
+  }
+
   return (
     <div
       onMouseMove={handleMouseMove}
@@ -76,23 +112,38 @@ export function Reaction({ className = '', position = 'top' }: ReactionProps) {
             
           `}
         >
-          <button onClick={handleClose} className="hover:scale-[132.5%]">
+          <button
+            onClick={() => handleReact(EnumTypeReaction.APOIO)}
+            className="hover:scale-[132.5%]"
+          >
             ❤️
           </button>
 
-          <button onClick={handleClose} className="hover:scale-[132.5%]">
-            🙏
+          <button
+            onClick={() => handleReact(EnumTypeReaction.ENTENDO_VOCE)}
+            className="hover:scale-[132.5%]"
+          >
+            🙌
           </button>
 
-          <button onClick={handleClose} className="hover:scale-[132.5%]">
+          <button
+            onClick={() => handleReact(EnumTypeReaction.FORCA)}
+            className="hover:scale-[132.5%]"
+          >
             💪
           </button>
 
-          <button onClick={handleClose} className="hover:scale-[132.5%]">
+          <button
+            onClick={() => handleReact(EnumTypeReaction.TRISTEZA)}
+            className="hover:scale-[132.5%]"
+          >
             😢
           </button>
 
-          <button onClick={handleClose} className="hover:scale-[132.5%]">
+          <button
+            onClick={() => handleReact(EnumTypeReaction.ESTAMOS_JUNTOS)}
+            className="hover:scale-[132.5%]"
+          >
             🤝
           </button>
         </div>

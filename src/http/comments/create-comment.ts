@@ -1,11 +1,11 @@
 import { api } from '../api-client'
 
-interface CreateCommentRequest {
+export interface CreateCommentRequest {
   postId: string
   content: string
 }
 
-interface CreateCommentResponse {
+export interface CreateCommentResponse {
   result: 'success' | 'error'
   message?: string
 }
