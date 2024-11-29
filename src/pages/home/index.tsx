@@ -16,6 +16,7 @@ export function Home() {
             key={post.id}
             post={{
               id: post.id,
+              isOwner: post.isOwner,
               content: post.content,
               publishedAt: post.publishedAt,
               updatedAt: post.updatedAt,

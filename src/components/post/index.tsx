@@ -3,6 +3,7 @@ import { ptBR } from 'date-fns/locale'
 import { Bookmark, Ellipsis, MessageCircle } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
+import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
 import type { IPost } from '@/http/posts/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
@@ -17,7 +18,7 @@ export interface PostProps {
 }
 
 export function Post({
-  post: { id, content, publishedAt, updatedAt, comments, reactions },
+  post: { id, isOwner, content, publishedAt, updatedAt, comments, reactions },
 }: PostProps) {
   const [modalPreview, setModalPreview] = useState(false)
   const [modalOptions, setModalOptions] = useState(false)
@@ -40,6 +41,8 @@ export function Post({
     () => `https://api.dicebear.com/9.x/adventurer/svg?seed=${adjective}`,
     [adjective],
   )
+
+  const authReaction = reactions.find((reaction) => reaction.isOwner)
 
   return (
     <div>
@@ -68,9 +71,18 @@ export function Post({
         </div>
 
         <div
-          className={`w-full min-h-32 rounded-md p-4 ${colors.bg_color} pink`}
+          className={`relative w-full min-h-32 rounded-md p-4 ${colors.bg_color} pink`}
         >
           <p className={`text-sm ${colors.text_color}`}>{content}</p>
+
+          {authReaction && (
+            <button
+              title={`Você reagiu com: ${REACTION_LIST[authReaction.type].label}`}
+              className="absolute top-1/2 -translate-y-1/2 -right-7"
+            >
+              {REACTION_LIST[authReaction.type].icon}
+            </button>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
@@ -88,7 +100,15 @@ export function Post({
       </div>
 
       <PostPreview
-        post={{ id, content, publishedAt, updatedAt, comments, reactions }}
+        post={{
+          id,
+          isOwner,
+          content,
+          publishedAt,
+          updatedAt,
+          comments,
+          reactions,
+        }}
         user={{ name: adjective, avatar }}
         backgroundColor={colors.bg_color}
         open={modalPreview}

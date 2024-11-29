@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
+import { REACTION_LIST } from '@/constants/reactions'
 import { usePost } from '@/contexts/post'
 import { EnumTypeReaction } from '@/http/reactions/types'
 
@@ -69,7 +70,10 @@ export function Reaction({
   async function handleReact(type: EnumTypeReaction) {
     try {
       if (postId) {
-        const { result } = await onCreatePostReaction({ postId, type })
+        const { result } = await onCreatePostReaction({
+          postId,
+          type,
+        })
 
         if (result === 'success') handleClose()
       }
@@ -109,11 +113,11 @@ export function Reaction({
             rounded-md 
             p-2
             bg-zinc-700
-            
           `}
         >
           <button
             onClick={() => handleReact(EnumTypeReaction.APOIO)}
+            title={REACTION_LIST[EnumTypeReaction.APOIO].label}
             className="hover:scale-[132.5%]"
           >
             ❤️
@@ -121,6 +125,7 @@ export function Reaction({
 
           <button
             onClick={() => handleReact(EnumTypeReaction.ENTENDO_VOCE)}
+            title={REACTION_LIST[EnumTypeReaction.ENTENDO_VOCE].label}
             className="hover:scale-[132.5%]"
           >
             🙌
@@ -128,6 +133,7 @@ export function Reaction({
 
           <button
             onClick={() => handleReact(EnumTypeReaction.FORCA)}
+            title={REACTION_LIST[EnumTypeReaction.FORCA].label}
             className="hover:scale-[132.5%]"
           >
             💪
@@ -135,6 +141,7 @@ export function Reaction({
 
           <button
             onClick={() => handleReact(EnumTypeReaction.TRISTEZA)}
+            title={REACTION_LIST[EnumTypeReaction.TRISTEZA].label}
             className="hover:scale-[132.5%]"
           >
             😢
@@ -142,6 +149,7 @@ export function Reaction({
 
           <button
             onClick={() => handleReact(EnumTypeReaction.ESTAMOS_JUNTOS)}
+            title={REACTION_LIST[EnumTypeReaction.ESTAMOS_JUNTOS].label}
             className="hover:scale-[132.5%]"
           >
             🤝

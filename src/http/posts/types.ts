@@ -3,6 +3,7 @@ import type { IReactionPost } from '../reactions/types'
 
 export interface IPost {
   id: string
+  isOwner: boolean
   content: string
   publishedAt: string
   updatedAt: string | null

@@ -8,6 +8,7 @@ export enum EnumTypeReaction {
 
 export interface IReactionPost {
   id: string
+  isOwner: boolean
   type: EnumTypeReaction
   reactedAt: string
 }
@@ -15,6 +16,7 @@ export interface IReactionPost {
 export interface IReactionComment {
   id: string
   postId: string
+  isOwner: boolean
   type: EnumTypeReaction
   reactedAt: string
 }

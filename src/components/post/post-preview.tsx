@@ -46,15 +46,12 @@ export function PostPreview({
     event.preventDefault()
 
     try {
-      const { result, message } = await onCreateComment({
+      const { result } = await onCreateComment({
         postId: post.id,
         content: comment,
       })
 
-      if (result === 'success') {
-        setComment('')
-        toast.success(message)
-      }
+      if (result === 'success') setComment('')
     } catch (error) {
       console.log(error)
 
@@ -122,6 +119,7 @@ export function PostPreview({
                   key={comment.id}
                   comment={{
                     id: comment.id,
+                    isOwner: comment.isOwner,
                     postId: comment.postId,
                     content: comment.content,
                     commentedAt: comment.commentedAt,
