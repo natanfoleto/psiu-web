@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 
 import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import { usePost } from '@/contexts/post'
 import type { IPost } from '@/http/posts/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
@@ -20,6 +21,8 @@ export interface PostProps {
 export function Post({
   post: { id, isOwner, content, publishedAt, updatedAt, comments, reactions },
 }: PostProps) {
+  const { onDeletePostReaction } = usePost()
+
   const [modalPreview, setModalPreview] = useState(false)
   const [modalOptions, setModalOptions] = useState(false)
 
@@ -42,7 +45,11 @@ export function Post({
     [adjective],
   )
 
-  const authReaction = reactions.find((reaction) => reaction.isOwner)
+  const reaction = reactions.find((reaction) => reaction.isOwner)
+
+  async function handleDeleteReaction(reactionId: string) {
+    await onDeletePostReaction({ reactionId })
+  }
 
   return (
     <div>
@@ -75,12 +82,13 @@ export function Post({
         >
           <p className={`text-sm ${colors.text_color}`}>{content}</p>
 
-          {authReaction && (
+          {reaction && (
             <button
-              title={`Você reagiu com: ${REACTION_LIST[authReaction.type].label}`}
+              onClick={() => handleDeleteReaction(reaction.id)}
+              title={`Você reagiu com: ${REACTION_LIST[reaction.type].label}`}
               className="absolute top-1/2 -translate-y-1/2 -right-7"
             >
-              {REACTION_LIST[authReaction.type].icon}
+              {REACTION_LIST[reaction.type].icon}
             </button>
           )}
         </div>
@@ -109,6 +117,7 @@ export function Post({
           comments,
           reactions,
         }}
+        reaction={reaction}
         user={{ name: adjective, avatar }}
         backgroundColor={colors.bg_color}
         open={modalPreview}

@@ -13,6 +13,10 @@ import type {
   CreatePostReactionRequest,
   CreatePostReactionResponse,
 } from '@/http/reactions/create-post-reaction'
+import type {
+  DeletePostReactionRequest,
+  DeletePostReactionResponse,
+} from '@/http/reactions/delete-post-reaction'
 
 export interface PostProviderProps {
   children: ReactNode
@@ -25,4 +29,7 @@ export interface PostContextType {
   onCreatePostReaction(
     reaction: CreatePostReactionRequest,
   ): Promise<CreatePostReactionResponse>
+  onDeletePostReaction(
+    reaction: DeletePostReactionRequest,
+  ): Promise<DeletePostReactionResponse>
 }
