@@ -2,7 +2,9 @@ import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import { usePost } from '@/contexts/post'
 import type { IComment } from '@/http/comments/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
 
@@ -14,8 +16,10 @@ export interface CommentProps {
 }
 
 export function Comment({
-  comment: { content, commentedAt, updatedAt, reactions },
+  comment: { id, content, commentedAt, updatedAt, reactions },
 }: CommentProps) {
+  const { onDeleteCommentReaction } = usePost()
+
   const [isExpanded, setIsExpanded] = useState(false)
   const [isOverflowing, setIsOverflowing] = useState(false)
 
@@ -42,17 +46,24 @@ export function Comment({
     [adjective],
   )
 
+  const reaction = reactions.find((reaction) => reaction.isOwner)
+
   return (
     <div className="grid grid-cols-12 items-center gap-3">
       <div className="col-span-11 flex items-start gap-3">
         <div className="relative">
           <Avatar src={avatar} className={`w-10 h-10 ${colors.bg_color}`} />
 
-          <button
-            className={`absolute -bottom-1.5 -left-1.5 text-[10px] p-[1px] px-0.5 rounded-full ${colors.bg_color}`}
-          >
-            ❤️
-          </button>
+          {reaction && (
+            <button
+              onClick={() =>
+                onDeleteCommentReaction({ reactionId: reaction.id })
+              }
+              className={`absolute -bottom-1.5 -left-1.5 text-[10px] p-[1px] px-0.5 rounded-full ${colors.bg_color}`}
+            >
+              {REACTION_LIST[reaction.type].icon}
+            </button>
+          )}
         </div>
 
         <div>
@@ -101,7 +112,11 @@ export function Comment({
         </div>
       </div>
 
-      <Reaction position="left" className="size-4 text-zinc-400" />
+      <Reaction
+        commentId={id}
+        position="left"
+        className="size-4 text-zinc-400"
+      />
     </div>
   )
 }

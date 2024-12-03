@@ -20,7 +20,7 @@ export function Reaction({
   postId,
   commentId,
 }: ReactionProps) {
-  const { onCreatePostReaction } = usePost()
+  const { onCreatePostReaction, onCreateCommentReaction } = usePost()
 
   const [open, setOpen] = useState(false)
 
@@ -79,7 +79,9 @@ export function Reaction({
       }
 
       if (commentId) {
-        // Cria a reação do comentrário
+        const { result } = await onCreateCommentReaction({ commentId, type })
+
+        if (result === 'success') handleClose()
       }
     } catch (error) {
       console.log(error)

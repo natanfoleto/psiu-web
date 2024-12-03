@@ -10,9 +10,17 @@ import type {
 } from '@/http/posts/create-post'
 import type { IPost } from '@/http/posts/types'
 import type {
+  CreateCommentReactionRequest,
+  CreateCommentReactionResponse,
+} from '@/http/reactions/create-comment-reaction'
+import type {
   CreatePostReactionRequest,
   CreatePostReactionResponse,
 } from '@/http/reactions/create-post-reaction'
+import type {
+  DeleteCommentReactionRequest,
+  DeleteCommentReactionResponse,
+} from '@/http/reactions/delete-comment-reaction'
 import type {
   DeletePostReactionRequest,
   DeletePostReactionResponse,
@@ -32,4 +40,10 @@ export interface PostContextType {
   onDeletePostReaction(
     reaction: DeletePostReactionRequest,
   ): Promise<DeletePostReactionResponse>
+  onCreateCommentReaction(
+    reaction: CreateCommentReactionRequest,
+  ): Promise<CreateCommentReactionResponse>
+  onDeleteCommentReaction(
+    reaction: DeleteCommentReactionRequest,
+  ): Promise<DeleteCommentReactionResponse>
 }

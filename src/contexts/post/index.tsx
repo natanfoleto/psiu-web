@@ -19,10 +19,20 @@ import {
 import { getPosts } from '@/http/posts/get-posts'
 import type { IPost } from '@/http/posts/types'
 import {
+  createCommentReaction,
+  type CreateCommentReactionRequest,
+  type CreateCommentReactionResponse,
+} from '@/http/reactions/create-comment-reaction'
+import {
   createPostReaction,
   type CreatePostReactionRequest,
   type CreatePostReactionResponse,
 } from '@/http/reactions/create-post-reaction'
+import {
+  deleteCommentReaction,
+  type DeleteCommentReactionRequest,
+  type DeleteCommentReactionResponse,
+} from '@/http/reactions/delete-comment-reaction'
 import {
   deletePostReaction,
   type DeletePostReactionRequest,
@@ -108,6 +118,40 @@ const PostProvider = ({ children }: PostProviderProps) => {
     [fetchPosts],
   )
 
+  const onCreateCommentReaction = useCallback(
+    async ({
+      commentId,
+      type,
+    }: CreateCommentReactionRequest): Promise<CreateCommentReactionResponse> => {
+      const { result, message } = await createCommentReaction({
+        commentId,
+        type,
+      })
+
+      if (result === 'success') {
+        await fetchPosts()
+      }
+
+      return { result, message }
+    },
+    [fetchPosts],
+  )
+
+  const onDeleteCommentReaction = useCallback(
+    async ({
+      reactionId,
+    }: DeleteCommentReactionRequest): Promise<DeleteCommentReactionResponse> => {
+      const { result, message } = await deleteCommentReaction({ reactionId })
+
+      if (result === 'success') {
+        await fetchPosts()
+      }
+
+      return { result, message }
+    },
+    [fetchPosts],
+  )
+
   return (
     <PostContext.Provider
       value={{
@@ -116,6 +160,8 @@ const PostProvider = ({ children }: PostProviderProps) => {
         onCreateComment,
         onCreatePostReaction,
         onDeletePostReaction,
+        onCreateCommentReaction,
+        onDeleteCommentReaction,
       }}
     >
       {children}

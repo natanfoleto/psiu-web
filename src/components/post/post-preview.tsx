@@ -87,10 +87,7 @@ export function PostPreview({
           className="w-[1280px] grid grid-cols-12 rounded-lg bg-zinc-800"
         >
           <div className="relative col-span-7 flex justify-center items-center overflow-hidden px-8 pt-8 pb-20">
-            <p
-              onClick={() => console.log({ reaction })}
-              className="flex items-center justify-center text-zinc-300 overflow-y-auto h-full"
-            >
+            <p className="flex items-center justify-center text-zinc-300 overflow-y-auto h-full">
               {post.content}
             </p>
 

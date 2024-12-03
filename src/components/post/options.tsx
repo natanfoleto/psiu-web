@@ -10,7 +10,7 @@ export function Options({ open, setOpen }: OptionsProps) {
     open && (
       <div
         onClick={setOpen}
-        className="absolute inset-0 flex items-center justify-center bg-black/50 py-24"
+        className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 py-24"
       >
         <div
           onClick={(e) => e.stopPropagation()}
