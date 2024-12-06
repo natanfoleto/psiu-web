@@ -171,7 +171,9 @@ export function PostPreview({
               </div>
 
               <p
-                onClick={handleModalReactionList}
+                onClick={
+                  post.reactions.length ? handleModalReactionList : undefined
+                }
                 className="text-xs text-zinc-400 cursor-pointer hover:underline"
               >
                 <strong>{post.reactions.length}</strong> pessoas reagiram essa
