@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 
 import { usePost } from '@/contexts/post'
 
-import { DialogConfirm } from '../dialog/dialog-confirm'
+import { ModalConfirm } from '../modal/modal-confirm'
 import { ButtonOption } from './button-option'
 
 interface OptionsProps {
@@ -17,7 +17,11 @@ interface OptionsProps {
 export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
   const { onDeletePost } = usePost()
 
-  const [dialogConfirmDeletePost, setDialogConfirmDeletePost] = useState(false)
+  const [modalConfirmDeletePost, setModalConfirmDeletePost] = useState(false)
+
+  function handleModalConfirmDeletePost() {
+    setModalConfirmDeletePost(!modalConfirmDeletePost)
+  }
 
   async function handleDeletePost() {
     try {
@@ -48,7 +52,7 @@ export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
           {isOwner ? (
             <ButtonOption
               className="text-red-500 font-medium"
-              onClick={handleDeletePost}
+              onClick={handleModalConfirmDeletePost}
             >
               Excluir
             </ButtonOption>
@@ -97,12 +101,12 @@ export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
           </ButtonOption>
         </div>
 
-        <DialogConfirm
+        <ModalConfirm
           title="Excluir publicação?"
           description="Tem certeza de que deseja excluir essa publicação?"
           onConfirm={handleDeletePost}
-          open={dialogConfirmDeletePost}
-          setOpen={() => { }}
+          open={modalConfirmDeletePost}
+          setOpen={handleModalConfirmDeletePost}
         />
       </div>
     )
