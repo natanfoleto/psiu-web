@@ -16,6 +16,11 @@ import {
   type CreatePostRequest,
   type CreatePostResponse,
 } from '@/http/posts/create-post'
+import {
+  deletePost,
+  type DeletePostRequest,
+  type DeletePostResponse,
+} from '@/http/posts/delete-post'
 import { getPosts } from '@/http/posts/get-posts'
 import type { IPost } from '@/http/posts/types'
 import {
@@ -61,6 +66,19 @@ const PostProvider = ({ children }: PostProviderProps) => {
   const onCreatePost = useCallback(
     async ({ content }: CreatePostRequest): Promise<CreatePostResponse> => {
       const { result, message } = await createPost({ content })
+
+      if (result === 'success') {
+        await fetchPosts()
+      }
+
+      return { result, message }
+    },
+    [fetchPosts],
+  )
+
+  const onDeletePost = useCallback(
+    async ({ postId }: DeletePostRequest): Promise<DeletePostResponse> => {
+      const { result, message } = await deletePost({ postId })
 
       if (result === 'success') {
         await fetchPosts()
@@ -157,6 +175,7 @@ const PostProvider = ({ children }: PostProviderProps) => {
       value={{
         posts,
         onCreatePost,
+        onDeletePost,
         onCreateComment,
         onCreatePostReaction,
         onDeletePostReaction,

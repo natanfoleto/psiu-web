@@ -124,7 +124,12 @@ export function Post({
         setOpen={handleModalPreview}
       />
 
-      <Options open={modalOptions} setOpen={handleModalOptions} />
+      <Options
+        postId={id}
+        isOwner={isOwner}
+        open={modalOptions}
+        setOpen={handleModalOptions}
+      />
     </div>
   )
 }

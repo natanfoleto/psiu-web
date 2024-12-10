@@ -8,6 +8,10 @@ import type {
   CreatePostRequest,
   CreatePostResponse,
 } from '@/http/posts/create-post'
+import type {
+  DeletePostRequest,
+  DeletePostResponse,
+} from '@/http/posts/delete-post'
 import type { IPost } from '@/http/posts/types'
 import type {
   CreateCommentReactionRequest,
@@ -33,6 +37,7 @@ export interface PostProviderProps {
 export interface PostContextType {
   posts: IPost[]
   onCreatePost(post: CreatePostRequest): Promise<CreatePostResponse>
+  onDeletePost(post: DeletePostRequest): Promise<DeletePostResponse>
   onCreateComment(comment: CreateCommentRequest): Promise<CreateCommentResponse>
   onCreatePostReaction(
     reaction: CreatePostReactionRequest,
