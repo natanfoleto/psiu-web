@@ -9,7 +9,7 @@ import { router } from './routes'
 function App() {
   return (
     <AuthProvider>
-      <Toaster position="top-right" closeButton richColors theme="dark" />
+      <Toaster position="bottom-right" theme="light" closeButton />
       <RouterProvider router={router} />
     </AuthProvider>
   )

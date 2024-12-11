@@ -24,6 +24,8 @@ export function NewPost() {
 
       if (result === 'success') {
         handleClose()
+        setContent('')
+
         toast.success(message)
       }
     } catch (error) {

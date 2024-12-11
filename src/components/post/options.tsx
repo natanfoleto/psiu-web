@@ -4,8 +4,8 @@ import { toast } from 'sonner'
 
 import { usePost } from '@/contexts/post'
 
+import { ButtonOption } from '../button-option'
 import { ModalConfirm } from '../modal/modal-confirm'
-import { ButtonOption } from './button-option'
 
 interface OptionsProps {
   postId: string

@@ -12,6 +12,11 @@ import {
   type CreateCommentResponse,
 } from '@/http/comments/create-comment'
 import {
+  deleteComment,
+  type DeleteCommentRequest,
+  type DeleteCommentResponse,
+} from '@/http/comments/delete-comment'
+import {
   createPost,
   type CreatePostRequest,
   type CreatePostResponse,
@@ -105,6 +110,21 @@ const PostProvider = ({ children }: PostProviderProps) => {
     [fetchPosts],
   )
 
+  const onDeleteComment = useCallback(
+    async ({
+      commentId,
+    }: DeleteCommentRequest): Promise<DeleteCommentResponse> => {
+      const { result, message } = await deleteComment({ commentId })
+
+      if (result === 'success') {
+        await fetchPosts()
+      }
+
+      return { result, message }
+    },
+    [fetchPosts],
+  )
+
   const onCreatePostReaction = useCallback(
     async ({
       postId,
@@ -177,6 +197,7 @@ const PostProvider = ({ children }: PostProviderProps) => {
         onCreatePost,
         onDeletePost,
         onCreateComment,
+        onDeleteComment,
         onCreatePostReaction,
         onDeletePostReaction,
         onCreateCommentReaction,

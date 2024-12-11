@@ -13,6 +13,7 @@ import { Avatar } from '../avatar'
 import { Options } from './options'
 import { PostPreview } from './post-preview'
 import { Reaction } from './reaction'
+import { ReactionList } from './reaction-list'
 
 export interface PostProps {
   post: IPost
@@ -25,6 +26,7 @@ export function Post({
 
   const [modalPreview, setModalPreview] = useState(false)
   const [modalOptions, setModalOptions] = useState(false)
+  const [modalReactionList, setModalReactionList] = useState(false)
 
   function handleModalPreview() {
     setModalPreview(!modalPreview)
@@ -32,6 +34,10 @@ export function Post({
 
   function handleModalOptions() {
     setModalOptions(!modalOptions)
+  }
+
+  function handleModalReactionList() {
+    setModalReactionList(!modalReactionList)
   }
 
   const colors = useMemo(
@@ -53,8 +59,8 @@ export function Post({
 
   return (
     <div>
-      <div className="w-[432px] space-y-0">
-        <div className="flex items-center justify-between mb-3">
+      <div className="w-[432px]">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar
               src={avatar}
@@ -77,8 +83,15 @@ export function Post({
           />
         </div>
 
+        <p
+          onClick={reactions.length ? handleModalReactionList : undefined}
+          className="text-xs text-end text-zinc-400 cursor-pointer mb-2 hover:underline"
+        >
+          <strong>{reactions.length}</strong> reações
+        </p>
+
         <div
-          className={`relative w-full min-h-32 rounded-md p-4 ${colors.bg_color} pink`}
+          className={`relative w-full min-h-32 rounded-md p-4 ${colors.bg_color}`}
         >
           <p className={`text-sm ${colors.text_color}`}>{content}</p>
 
@@ -129,6 +142,12 @@ export function Post({
         isOwner={isOwner}
         open={modalOptions}
         setOpen={handleModalOptions}
+      />
+
+      <ReactionList
+        open={modalReactionList}
+        setOpen={handleModalReactionList}
+        reactions={reactions}
       />
     </div>
   )

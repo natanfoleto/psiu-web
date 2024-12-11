@@ -10,8 +10,6 @@ export interface DeletePostResponse {
 }
 
 export async function deletePost({ postId }: DeletePostRequest) {
-  console.log(1)
-
   const response = await api.delete(`post/${postId}`).json<DeletePostResponse>()
 
   return response
