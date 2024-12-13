@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import { useAuth } from '@/contexts/auth'
 import { usePost } from '@/contexts/post'
 import type { IComment } from '@/http/comments/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
@@ -21,6 +22,7 @@ export interface CommentProps {
 export function Comment({
   comment: { id, isOwner, content, commentedAt, updatedAt, reactions },
 }: CommentProps) {
+  const { student } = useAuth()
   const { onDeleteCommentReaction } = usePost()
 
   const [isExpanded, setIsExpanded] = useState(false)
@@ -90,7 +92,7 @@ export function Comment({
             `}
           >
             <span className="text-zinc-300 text-sm font-semibold mr-2">
-              {adjective}
+              {isOwner ? `${student?.name} (você)` : adjective}
             </span>
             {content}
           </p>

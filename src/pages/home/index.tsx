@@ -1,4 +1,4 @@
-import { Post } from '@/components/post'
+import { Post } from '@/components/post/post-card-1'
 import { usePost } from '@/contexts/post'
 
 import { NewPost } from './new-post'

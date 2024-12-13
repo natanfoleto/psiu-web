@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 
 import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
+import { useAuth } from '@/contexts/auth'
 import { usePost } from '@/contexts/post'
 import type { IPost } from '@/http/posts/types'
 import { getRandomAdjective } from '@/utils/get-random-adjective'
@@ -22,6 +23,7 @@ export interface PostProps {
 export function Post({
   post: { id, isOwner, content, publishedAt, updatedAt, comments, reactions },
 }: PostProps) {
+  const { student } = useAuth()
   const { onDeletePostReaction } = usePost()
 
   const [modalPreview, setModalPreview] = useState(false)
@@ -67,7 +69,9 @@ export function Post({
               className={`size-10 object-cover ${colors.bg_color}`}
             />
 
-            <h1 className="text-zinc-300 text-sm font-semibold">{adjective}</h1>
+            <h1 className="text-zinc-300 text-sm font-semibold">
+              {isOwner ? `${student?.name} (você)` : adjective}
+            </h1>
 
             <time className="text-zinc-500 text-sm">
               {formatDistanceToNow(updatedAt || publishedAt, {
@@ -131,7 +135,7 @@ export function Post({
           reactions,
         }}
         reaction={reaction}
-        user={{ name: adjective, avatar }}
+        user={{ name: isOwner ? `${student?.name} (você)` : adjective, avatar }}
         backgroundColor={colors.bg_color}
         open={modalPreview}
         setOpen={handleModalPreview}

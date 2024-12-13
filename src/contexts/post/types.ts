@@ -40,6 +40,7 @@ export interface PostProviderProps {
 
 export interface PostContextType {
   posts: IPost[]
+  postsByStudent: IPost[]
   onCreatePost(post: CreatePostRequest): Promise<CreatePostResponse>
   onDeletePost(post: DeletePostRequest): Promise<DeletePostResponse>
   onCreateComment(comment: CreateCommentRequest): Promise<CreateCommentResponse>
