@@ -2,7 +2,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { HTTPError } from 'ky'
 import { Bookmark, Ellipsis, MessageCircle, X } from 'lucide-react'
-import { type FormEvent, useRef, useState } from 'react'
+import { type FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import { REACTION_LIST } from '@/constants/reactions'
@@ -76,6 +76,24 @@ export function PostPreview({
   async function handleDeleteReaction(reactionId: string) {
     await onDeletePostReaction({ reactionId })
   }
+
+  const handleEsc = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open && !modalOptions) {
+        event.stopPropagation()
+        setOpen()
+      }
+    },
+    [open, modalOptions, setOpen],
+  )
+
+  useEffect(() => {
+    if (open && !modalOptions) document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [open, modalOptions, handleEsc])
 
   return (
     open && (

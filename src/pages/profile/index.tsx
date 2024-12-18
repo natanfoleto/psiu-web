@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { Avatar } from '@/components/avatar'
 import { Button } from '@/components/button'
+import { ModalConfirm } from '@/components/modal/modal-confirm'
 import { Post } from '@/components/post/post-card-2'
 import { useAuth } from '@/contexts/auth'
 import { usePost } from '@/contexts/post'
@@ -14,9 +15,14 @@ export function Profile() {
   const { postsByStudent } = usePost()
 
   const [modalUpdateProfile, setModalUpdateProfile] = useState(false)
+  const [modalConfirmLogout, setModalConfirmLogout] = useState(false)
 
   function handleModalUpdateProfile() {
     setModalUpdateProfile(!modalUpdateProfile)
+  }
+
+  function handleModalConfirmLogout() {
+    setModalConfirmLogout(!modalConfirmLogout)
   }
 
   const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
@@ -43,7 +49,7 @@ export function Profile() {
             Editar perfil
           </Button>
 
-          <Button onClick={signOut} className="bg-zinc-900">
+          <Button onClick={handleModalConfirmLogout} className="bg-zinc-900">
             <LogOut className="size-4 mr-2" />
             Sair
           </Button>
@@ -85,6 +91,14 @@ export function Profile() {
       <UpdateProfile
         open={modalUpdateProfile}
         setOpen={handleModalUpdateProfile}
+      />
+
+      <ModalConfirm
+        title="Saindo"
+        description="Deseja realmente sair?"
+        open={modalConfirmLogout}
+        setOpen={handleModalConfirmLogout}
+        onConfirm={signOut}
       />
     </div>
   )

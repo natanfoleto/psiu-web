@@ -1,5 +1,5 @@
 import { HTTPError } from 'ky'
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
@@ -13,8 +13,8 @@ export function NewPost() {
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState('')
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpen = useCallback(() => setOpen(true), [])
+  const handleClose = useCallback(() => setOpen(false), [])
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -38,6 +38,24 @@ export function NewPost() {
       }
     }
   }
+
+  const handleEsc = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open) {
+        event.stopPropagation()
+        handleClose()
+      }
+    },
+    [open, handleClose],
+  )
+
+  useEffect(() => {
+    if (open) document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [open, handleEsc])
 
   return (
     <div>

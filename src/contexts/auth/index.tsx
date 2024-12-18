@@ -2,6 +2,16 @@ import { createContext, useCallback, useContext } from 'react'
 
 import { useStorage } from '@/hooks/use-storage'
 import type { Student } from '@/http/auth/authenticate-with-password'
+import {
+  updatePassword,
+  type UpdatePasswordRequest,
+  type UpdatePasswordResponse,
+} from '@/http/auth/update-password'
+import {
+  updateStudent,
+  type UpdateStudentRequest,
+  type UpdateStudentResponse,
+} from '@/http/students/update-student'
 
 import type { AuthContextType, AuthProviderProps } from './types'
 
@@ -17,6 +27,45 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     [setStudent],
   )
 
+  const onUpdateStudent = useCallback(
+    async ({
+      name,
+      birthdate,
+    }: UpdateStudentRequest): Promise<UpdateStudentResponse> => {
+      const { result, message } = await updateStudent({ name, birthdate })
+
+      if (result === 'success') {
+        const newStudent = {
+          ...student!,
+          name,
+          birthdate,
+        }
+
+        handleStudent(newStudent)
+      }
+
+      return { result, message }
+    },
+    [handleStudent, student],
+  )
+
+  const onUpdatePassword = useCallback(
+    async ({
+      password,
+      newPassword,
+      confirmNewPassword,
+    }: UpdatePasswordRequest): Promise<UpdatePasswordResponse> => {
+      const { result, message } = await updatePassword({
+        password,
+        newPassword,
+        confirmNewPassword,
+      })
+
+      return { result, message }
+    },
+    [],
+  )
+
   const signOut = () => {
     setStudent(null)
   }
@@ -27,6 +76,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         signed: !!student,
         student,
         handleStudent,
+        onUpdateStudent,
+        onUpdatePassword,
         signOut,
       }}
     >

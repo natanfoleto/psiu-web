@@ -2,7 +2,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { X } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { REACTION_LIST } from '@/constants/reactions'
 import { TAILWIND_COLORS } from '@/constants/tailwind-colors'
@@ -36,6 +36,24 @@ export function ReactionList({ open, setOpen, reactions }: ReactionListProps) {
     activeTab === 'all'
       ? reactions
       : reactions.filter((reaction) => reaction.type.toString() === activeTab)
+
+  const handleEsc = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open) {
+        event.stopPropagation()
+        setOpen()
+      }
+    },
+    [open, setOpen],
+  )
+
+  useEffect(() => {
+    if (open) document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [open, handleEsc])
 
   return (
     open && (

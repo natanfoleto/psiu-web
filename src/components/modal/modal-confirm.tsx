@@ -1,3 +1,5 @@
+import { useCallback, useEffect } from 'react'
+
 import { ButtonModal } from './button-modal'
 
 interface ModalConfirmProps {
@@ -15,6 +17,24 @@ export function ModalConfirm({
   open,
   setOpen,
 }: ModalConfirmProps) {
+  const handleEsc = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open) {
+        event.stopPropagation()
+        setOpen()
+      }
+    },
+    [open, setOpen],
+  )
+
+  useEffect(() => {
+    if (open) document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [open, handleEsc])
+
   return (
     open && (
       <div

@@ -1,5 +1,5 @@
 import { HTTPError } from 'ky'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { usePost } from '@/contexts/post'
@@ -38,6 +38,25 @@ export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
       }
     }
   }
+
+  const handleEsc = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && open && !modalConfirmDeletePost) {
+        event.stopPropagation()
+        setOpen()
+      }
+    },
+    [open, modalConfirmDeletePost, setOpen],
+  )
+
+  useEffect(() => {
+    if (open && !modalConfirmDeletePost)
+      document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [open, modalConfirmDeletePost, handleEsc])
 
   return (
     open && (
