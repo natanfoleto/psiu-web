@@ -34,7 +34,7 @@ export function NewPost() {
       if (error instanceof HTTPError) {
         const { message } = await error.response.json()
 
-        return { result: 'error', message }
+        toast.error(message)
       }
     }
   }
@@ -68,7 +68,7 @@ export function NewPost() {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-[576px] h-96 rounded-lg bg-zinc-800"
+            className="w-1/2 h-96 rounded-lg bg-zinc-800"
           >
             <div className="bg-zinc-900 p-3 rounded-t-lg">
               <h1 className="text-zinc-300 text-sm font-semibold text-center">
@@ -98,7 +98,7 @@ export function NewPost() {
 
               <div className="flex justify-end py-4 px-3">
                 <Button
-                  className="bg-zinc-900 disabled:bg-zinc-700 disabled:cursor-not-allowed"
+                  className="bg-yellow-500 text-zinc-950 disabled:bg-zinc-700 disabled:cursor-not-allowed"
                   disabled={!content}
                 >
                   Publicar

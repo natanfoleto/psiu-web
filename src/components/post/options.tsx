@@ -6,21 +6,34 @@ import { usePost } from '@/contexts/post'
 
 import { ButtonOption } from '../button-option'
 import { ModalConfirm } from '../modal/modal-confirm'
+import { UpdatePost } from './update-post'
 
 interface OptionsProps {
   postId: string
+  content: string
   isOwner: boolean
   open: boolean
   setOpen(): void
 }
 
-export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
+export function Options({
+  postId,
+  content,
+  isOwner,
+  open,
+  setOpen,
+}: OptionsProps) {
   const { onDeletePost } = usePost()
 
+  const [modalUpdatePost, setModalUpdatePost] = useState(false)
   const [modalConfirmDeletePost, setModalConfirmDeletePost] = useState(false)
 
   function handleModalConfirmDeletePost() {
     setModalConfirmDeletePost(!modalConfirmDeletePost)
+  }
+
+  function handleModalUpdatePost() {
+    setModalUpdatePost(!modalUpdatePost)
   }
 
   async function handleDeletePost() {
@@ -69,12 +82,21 @@ export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
           className="w-[400px] rounded-lg bg-zinc-800"
         >
           {isOwner ? (
-            <ButtonOption
-              className="text-red-500 font-medium"
-              onClick={handleModalConfirmDeletePost}
-            >
-              Excluir
-            </ButtonOption>
+            <>
+              <ButtonOption
+                className="text-red-500 font-medium"
+                onClick={handleModalConfirmDeletePost}
+              >
+                Excluir
+              </ButtonOption>
+
+              <ButtonOption
+                className="text-zinc-300"
+                onClick={handleModalUpdatePost}
+              >
+                Editar
+              </ButtonOption>
+            </>
           ) : (
             <>
               <ButtonOption
@@ -119,6 +141,13 @@ export function Options({ postId, isOwner, open, setOpen }: OptionsProps) {
             Cancelar
           </ButtonOption>
         </div>
+
+        <UpdatePost
+          postId={postId}
+          content={content}
+          open={modalUpdatePost}
+          setOpen={handleModalUpdatePost}
+        />
 
         <ModalConfirm
           title="Excluir publicação?"

@@ -220,6 +220,7 @@ export function PostPreview({
 
           <Options
             postId={post.id}
+            content={post.content}
             isOwner={post.isOwner}
             open={modalOptions}
             setOpen={handleModalOptions}

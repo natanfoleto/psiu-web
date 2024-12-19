@@ -18,6 +18,10 @@ import type {
 } from '@/http/posts/delete-post'
 import type { IPost } from '@/http/posts/types'
 import type {
+  UpdatePostRequest,
+  UpdatePostResponse,
+} from '@/http/posts/update-post'
+import type {
   CreateCommentReactionRequest,
   CreateCommentReactionResponse,
 } from '@/http/reactions/create-comment-reaction'
@@ -42,6 +46,7 @@ export interface PostContextType {
   posts: IPost[]
   postsByStudent: IPost[]
   onCreatePost(post: CreatePostRequest): Promise<CreatePostResponse>
+  onUpdatePost(post: UpdatePostRequest): Promise<UpdatePostResponse>
   onDeletePost(post: DeletePostRequest): Promise<DeletePostResponse>
   onCreateComment(comment: CreateCommentRequest): Promise<CreateCommentResponse>
   onDeleteComment(comment: DeleteCommentRequest): Promise<DeleteCommentResponse>

@@ -66,7 +66,9 @@ export function Sidebar() {
             onError={(e) => console.log(e)}
           />
 
-          {student?.name || 'Perfil'}
+          <span className="max-w-full overflow-x-hidden text-nowrap truncate">
+            {student?.name || 'Perfil'}
+          </span>
         </SidebarLink>
       </div>
     </div>

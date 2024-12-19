@@ -45,7 +45,7 @@ export function UpdateProfile({ open, setOpen }: UpdateProfileProps) {
       if (error instanceof HTTPError) {
         const { message } = await error.response.json()
 
-        return { result: 'error', message }
+        toast.error(message)
       }
     }
   }

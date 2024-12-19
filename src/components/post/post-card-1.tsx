@@ -61,7 +61,7 @@ export function Post({
 
   return (
     <div>
-      <div className="w-[432px]">
+      <div className="w-[464px]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar
@@ -143,6 +143,7 @@ export function Post({
 
       <Options
         postId={id}
+        content={content}
         isOwner={isOwner}
         open={modalOptions}
         setOpen={handleModalOptions}

@@ -30,6 +30,11 @@ import { getPosts } from '@/http/posts/get-posts'
 import { getPostsByStudent } from '@/http/posts/get-posts-by-student'
 import type { IPost } from '@/http/posts/types'
 import {
+  updatePost,
+  type UpdatePostRequest,
+  type UpdatePostResponse,
+} from '@/http/posts/update-post'
+import {
   createCommentReaction,
   type CreateCommentReactionRequest,
   type CreateCommentReactionResponse,
@@ -89,6 +94,22 @@ const PostProvider = ({ children }: PostProviderProps) => {
   const onCreatePost = useCallback(
     async ({ content }: CreatePostRequest): Promise<CreatePostResponse> => {
       const { result, message } = await createPost({ content })
+
+      if (result === 'success') {
+        await fetchPosts()
+      }
+
+      return { result, message }
+    },
+    [fetchPosts],
+  )
+
+  const onUpdatePost = useCallback(
+    async ({
+      postId,
+      content,
+    }: UpdatePostRequest): Promise<UpdatePostResponse> => {
+      const { result, message } = await updatePost({ postId, content })
 
       if (result === 'success') {
         await fetchPosts()
@@ -214,6 +235,7 @@ const PostProvider = ({ children }: PostProviderProps) => {
         posts,
         postsByStudent,
         onCreatePost,
+        onUpdatePost,
         onDeletePost,
         onCreateComment,
         onDeleteComment,
