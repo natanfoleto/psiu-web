@@ -25,7 +25,7 @@ export function Profile() {
     setModalConfirmLogout(!modalConfirmLogout)
   }
 
-  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${student?.name}`
 
   return (
     <div className="w-full">

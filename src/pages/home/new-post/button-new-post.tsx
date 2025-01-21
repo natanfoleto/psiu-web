@@ -1,12 +1,16 @@
 import { Plus } from 'lucide-react'
 import type { ButtonHTMLAttributes } from 'react'
 
+import { useAuth } from '@/contexts/auth'
+
 interface ButtonNewPostProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
 }
 
 export function ButtonNewPost({ className, ...rest }: ButtonNewPostProps) {
-  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+  const { student } = useAuth()
+
+  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${student?.name}`
 
   return (
     <button

@@ -15,7 +15,7 @@ import { SidebarLink } from './sidebar-link'
 export function Sidebar() {
   const { student } = useAuth()
 
-  const avatar = 'https://api.dicebear.com/9.x/adventurer/svg?seed=natanfoleto'
+  const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${student?.name}`
 
   return (
     <div className="h-screen w-80 flex flex-col justify-between bg-zinc-900 px-6 py-8">
