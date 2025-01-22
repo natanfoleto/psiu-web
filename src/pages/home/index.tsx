@@ -4,10 +4,10 @@ import { usePost } from '@/contexts/post'
 import { NewPost } from './new-post'
 
 export function Home() {
-  const { posts } = usePost()
+  const { posts, page, last, onLoadMore } = usePost()
 
   return (
-    <div className="h-screen w-full px-16 py-8 space-y-12 overflow-y-auto">
+    <div className="h-screen w-full px-16 pt-8 pb-12 space-y-12 overflow-y-auto">
       <NewPost />
 
       <div className="flex flex-col items-center gap-12">
@@ -26,6 +26,17 @@ export function Home() {
           />
         ))}
       </div>
+
+      {page < last && (
+        <div className="w-full flex justify-center">
+          <button
+            onClick={onLoadMore}
+            className="text-zinc-300 text-sm hover:underline"
+          >
+            Carregar mais
+          </button>
+        </div>
+      )}
     </div>
   )
 }

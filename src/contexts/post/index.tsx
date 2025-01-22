@@ -66,13 +66,23 @@ const PostProvider = ({ children }: PostProviderProps) => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [postsByStudent, setPostsByStudent] = useState<IPost[]>([])
 
+  const [page, setPage] = useState(1)
+  const [last, setLast] = useState(0)
+
+  const onLoadMore = useCallback(() => {
+    setPage((prev) => prev + 1)
+  }, [])
+
   const fetchPosts = useCallback(async () => {
-    const { result, data } = await getPosts()
+    const { result, data, last } = await getPosts({ _page: page })
 
     if (result === 'success') {
-      if (data) setPosts(data)
+      if (data && last) {
+        setPosts((prev) => [...prev, ...data])
+        setLast(last)
+      }
     }
-  }, [])
+  }, [page])
 
   const fetchPostsByStudent = useCallback(async () => {
     if (student) {
@@ -234,6 +244,9 @@ const PostProvider = ({ children }: PostProviderProps) => {
       value={{
         posts,
         postsByStudent,
+        page,
+        last,
+        onLoadMore,
         onCreatePost,
         onUpdatePost,
         onDeletePost,

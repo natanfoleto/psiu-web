@@ -45,6 +45,9 @@ export interface PostProviderProps {
 export interface PostContextType {
   posts: IPost[]
   postsByStudent: IPost[]
+  page: number
+  last: number
+  onLoadMore(): void
   onCreatePost(post: CreatePostRequest): Promise<CreatePostResponse>
   onUpdatePost(post: UpdatePostRequest): Promise<UpdatePostResponse>
   onDeletePost(post: DeletePostRequest): Promise<DeletePostResponse>
