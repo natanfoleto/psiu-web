@@ -1,9 +1,14 @@
+import { HTTPError } from 'ky'
 import { File, Trash2 } from 'lucide-react'
 import { type ChangeEvent, type MouseEvent, useRef, useState } from 'react'
+import { toast } from 'sonner'
+
+import { Button } from '@/components/button'
+import { uploadStudent } from '@/http/students/upload-students'
 
 export function UploadForm() {
+  const [file, setFile] = useState<File | null>(null)
   const [fileName, setFileName] = useState('')
-  const [base64, setBase64] = useState('')
 
   const inputFileRef = useRef<HTMLInputElement>(null)
 
@@ -17,7 +22,7 @@ export function UploadForm() {
     if (inputFileRef.current) {
       inputFileRef.current.value = ''
       setFileName('')
-      setBase64('')
+      setFile(null)
     }
   }
 
@@ -28,21 +33,38 @@ export function UploadForm() {
       const file = files[0]
 
       setFileName(file.name)
+      setFile(file)
+    }
+  }
 
-      const reader = new FileReader()
+  async function handleSubmit(event: MouseEvent<HTMLButtonElement>) {
+    try {
+      event.preventDefault()
 
-      reader.onload = (e: ProgressEvent<FileReader>) => {
-        if (e.target && typeof e.target.result === 'string') {
-          setBase64(e.target.result.replace('data:text/csv;base64,', ''))
-        }
+      if (!file) return alert('Selecione um arquivo para upload')
+
+      const formData = new FormData()
+
+      formData.append('file', file)
+
+      const { result, data } = await uploadStudent({ formData })
+
+      if (result === 'success') {
+        console.log(data)
       }
+    } catch (error) {
+      console.log(error)
 
-      reader.readAsDataURL(file)
+      if (error instanceof HTTPError) {
+        const { message } = await error.response.json()
+
+        toast.error(message)
+      }
     }
   }
 
   return (
-    <div className="h-40 w-64">
+    <div className="h-40 w-64 space-y-4">
       <form
         onClick={handleInputClick}
         className="
@@ -78,6 +100,14 @@ export function UploadForm() {
           )}
         </p>
       </form>
+
+      <Button
+        onClick={handleSubmit}
+        className="bg-green-600 w-full disabled:bg-green-800"
+        disabled={!file}
+      >
+        Enviar
+      </Button>
     </div>
   )
 }
