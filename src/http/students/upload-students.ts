@@ -4,14 +4,16 @@ export interface UploadStudentRequest {
   formData: FormData
 }
 
+export interface UploadStudent {
+  name: string
+  ra: string
+  birthdate: string
+  password: string
+}
+
 export interface UploadStudentResponse {
   result: 'success' | 'error'
-  data: {
-    name: string
-    ra: string
-    birthdate: string
-    password: string
-  }[]
+  data: UploadStudent[]
   message?: string
 }
 

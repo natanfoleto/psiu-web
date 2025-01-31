@@ -1,12 +1,26 @@
 import { HTTPError } from 'ky'
 import { File, Trash2 } from 'lucide-react'
-import { type ChangeEvent, type MouseEvent, useRef, useState } from 'react'
+import {
+  type ChangeEvent,
+  type Dispatch,
+  type MouseEvent,
+  type SetStateAction,
+  useRef,
+  useState,
+} from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
-import { uploadStudent } from '@/http/students/upload-students'
+import {
+  type UploadStudent,
+  uploadStudent,
+} from '@/http/students/upload-students'
 
-export function UploadForm() {
+interface UploadFormProps {
+  onSuccess: Dispatch<SetStateAction<UploadStudent[]>>
+}
+
+export function UploadForm({ onSuccess }: UploadFormProps) {
   const [file, setFile] = useState<File | null>(null)
   const [fileName, setFileName] = useState('')
 
@@ -50,7 +64,10 @@ export function UploadForm() {
       const { result, data } = await uploadStudent({ formData })
 
       if (result === 'success') {
-        console.log(data)
+        onSuccess(data)
+
+        setFileName('')
+        setFile(null)
       }
     } catch (error) {
       console.log(error)
