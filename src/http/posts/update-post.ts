@@ -1,4 +1,5 @@
 import { api } from '../api-client'
+import type { IPost } from './types'
 
 export interface UpdatePostRequest {
   postId: string
@@ -8,6 +9,9 @@ export interface UpdatePostRequest {
 export interface UpdatePostResponse {
   result: 'success' | 'error'
   message?: string
+  data: {
+    post: IPost
+  }
 }
 
 export async function updatePost({ postId, content }: UpdatePostRequest) {

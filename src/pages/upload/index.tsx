@@ -1,5 +1,6 @@
 import { HTTPError } from 'ky'
 import { type FormEvent, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/button'
@@ -12,6 +13,8 @@ import { StudentCard } from './student-card'
 import { UploadForm } from './upload-form'
 
 export function Upload() {
+  const navigate = useNavigate()
+
   const [students, setStudents] = useState<UploadStudent[]>([])
 
   const [password, setPassword] = useState('')
@@ -87,7 +90,14 @@ export function Upload() {
 
   return (
     <div className="bg-zinc-900 h-screen grid grid-cols-12">
-      <div className="flex items-center justify-center col-span-4 border-r border-zinc-700">
+      <div className="flex flex-col items-center justify-center col-span-4 border-r border-zinc-700">
+        <h1
+          onClick={() => navigate('/')}
+          className="absolute top-8 left-8 text-zinc-200 font-medium cursor-pointer"
+        >
+          psiuuu!
+        </h1>
+
         <UploadForm onSuccess={setStudents} />
       </div>
 

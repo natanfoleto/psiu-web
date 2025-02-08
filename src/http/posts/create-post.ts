@@ -1,4 +1,5 @@
 import { api } from '../api-client'
+import type { IPost } from './types'
 
 export interface CreatePostRequest {
   content: string
@@ -7,6 +8,9 @@ export interface CreatePostRequest {
 export interface CreatePostResponse {
   result: 'success' | 'error'
   message?: string
+  data: {
+    post: IPost
+  }
 }
 
 export async function createPost({ content }: CreatePostRequest) {
