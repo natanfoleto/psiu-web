@@ -1,5 +1,5 @@
 import { api } from '../api-client'
-import type { EnumTypeReaction } from './types'
+import type { EnumTypeReaction, IReactionComment } from './types'
 
 export interface CreateCommentReactionRequest {
   commentId: string
@@ -9,6 +9,9 @@ export interface CreateCommentReactionRequest {
 export interface CreateCommentReactionResponse {
   result: 'error' | 'success'
   message?: string
+  data: {
+    reaction: IReactionComment
+  }
 }
 
 export async function createCommentReaction({

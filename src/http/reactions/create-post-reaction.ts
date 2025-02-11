@@ -1,5 +1,5 @@
 import { api } from '../api-client'
-import type { EnumTypeReaction } from './types'
+import type { EnumTypeReaction, IReactionPost } from './types'
 
 export interface CreatePostReactionRequest {
   postId: string
@@ -9,6 +9,9 @@ export interface CreatePostReactionRequest {
 export interface CreatePostReactionResponse {
   result: 'error' | 'success'
   message?: string
+  data: {
+    reaction: IReactionPost
+  }
 }
 
 export async function createPostReaction({
