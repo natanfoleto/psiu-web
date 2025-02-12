@@ -1,6 +1,6 @@
 import ky, { type AfterResponseHook, BeforeRequestHook } from 'ky'
 
-const prefixUrl = 'http://localhost:3333'
+const prefixUrl = import.meta.env.VITE_API_URL
 
 const beforeRequest: BeforeRequestHook = async (_request) => {
   const cookies: Record<string, string> = document.cookie.split(';').reduce(
@@ -26,7 +26,7 @@ const afterResponse: AfterResponseHook = async (
     localStorage.clear()
     sessionStorage.clear()
 
-    window.location.href = '/'
+    // window.location.href = '/'
   }
 }
 
