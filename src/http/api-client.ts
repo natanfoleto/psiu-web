@@ -26,7 +26,7 @@ const afterResponse: AfterResponseHook = async (
     localStorage.clear()
     sessionStorage.clear()
 
-    // window.location.href = '/'
+    window.location.href = '/'
   }
 }
 

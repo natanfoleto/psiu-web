@@ -66,8 +66,6 @@ const PostProvider = ({ children }: PostProviderProps) => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [postsByStudent, setPostsByStudent] = useState<IPost[]>([])
 
-  console.log(posts)
-
   const [page, setPage] = useState(1)
   const [last, setLast] = useState(0)
 
