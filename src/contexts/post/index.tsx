@@ -96,8 +96,6 @@ const PostProvider = ({ children }: PostProviderProps) => {
     }
   }, [student])
 
-  console.log(posts)
-
   useEffect(() => {
     fetchPosts()
     fetchPostsByStudent()
