@@ -98,7 +98,7 @@ export function SignInForm() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-col gap-2 sm:flex-row">
         <div className="flex items-center gap-1">
           <input
             type="checkbox"
