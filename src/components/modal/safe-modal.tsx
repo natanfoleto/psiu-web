@@ -15,7 +15,7 @@ export function SafeModal({
 }: SafeModalProps) {
   return (
     open && (
-      <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 py-24">
+      <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 px-4 py-24">
         <div
           onClick={(e) => e.stopPropagation()}
           className="w-[400px] rounded-lg bg-zinc-800"

@@ -42,24 +42,26 @@ export function StudentCard({ student }: StudentCardProps) {
         <span>#</span>
 
         <div>
-          <h1 className="text-zinc-200 font-semibold">RA</h1>
-          <p className="text-sm">{student.ra}</p>
+          <h1 className="text-zinc-200 font-semibold text-center">RA</h1>
+          <p className="text-sm text-center">{student.ra}</p>
         </div>
       </div>
 
       <div>
-        <h2 className="text-zinc-200 font-semibold">Nome</h2>
-        <p className="text-sm">{student.name}</p>
+        <h2 className="text-zinc-200 font-semibold text-center">Nome</h2>
+        <p className="text-sm text-center">{student.name}</p>
       </div>
 
       <div>
-        <h2 className="text-zinc-200 font-semibold">Data de nasc.</h2>
-        <p className="text-sm">{student.birthdate}</p>
+        <h2 className="text-zinc-200 font-semibold text-center">
+          Data de nasc.
+        </h2>
+        <p className="text-sm text-center">{student.birthdate}</p>
       </div>
 
       <div>
-        <h2 className="text-zinc-200 font-semibold">Senha</h2>
-        <p className="text-sm">{student.password}</p>
+        <h2 className="text-zinc-200 font-semibold text-center">Senha</h2>
+        <p className="text-sm text-center">{student.password}</p>
       </div>
     </div>
   )

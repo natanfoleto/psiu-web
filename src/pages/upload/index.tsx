@@ -89,11 +89,27 @@ export function Upload() {
   }
 
   return (
-    <div className="bg-zinc-900 h-screen grid grid-cols-12">
-      <div className="flex flex-col items-center justify-center col-span-4 border-r border-zinc-700">
+    <div className="bg-zinc-900 min-h-screen grid grid-cols-12">
+      <div
+        className="
+          flex 
+          flex-col 
+          items-center 
+          justify-center 
+          pt-8
+          pb-24
+          col-span-12 
+          border-b 
+          border-zinc-700
+          lg:col-span-4
+          lg:py-0
+          lg:border-r
+          lg:border-b-0
+        "
+      >
         <h1
           onClick={() => navigate('/')}
-          className="absolute top-8 left-8 text-zinc-200 font-medium cursor-pointer"
+          className="absolute top-8 left-8 text-zinc-200 font-medium cursor-pointer lg:block hidden"
         >
           psiuuu!
         </h1>
@@ -101,7 +117,21 @@ export function Upload() {
         <UploadForm onSuccess={setStudents} />
       </div>
 
-      <div className="h-screen flex flex-col gap-4 items-end col-span-8 px-16 py-8">
+      <div
+        className="
+          h-screen 
+          flex 
+          flex-col 
+          gap-4 
+          items-center 
+          col-span-12 
+          px-8 
+          py-8
+          lg:col-span-8
+          lg:items-end
+          lg:px-16
+        "
+      >
         {students.length ? (
           <>
             <div className="flex items-center gap-2">
@@ -114,7 +144,7 @@ export function Upload() {
               </Button>
             </div>
 
-            <div className="w-full overflow-y-scroll space-y-3 pr-4">
+            <div className="w-full overflow-y-scroll overflow-x-auto space-y-3 pr-4">
               {students.map((student) => (
                 <StudentCard key={student.ra} student={student} />
               ))}
@@ -145,7 +175,7 @@ export function Upload() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full focus:border-red-500"
+              className="w-full focus:border-red-500 text-center sm:text-left"
               placeholder="Chave secreta"
               required
             />
