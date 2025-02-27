@@ -67,7 +67,10 @@ export function Comment({
     <div className="grid grid-cols-12 items-center gap-3">
       <div className="col-span-11 flex items-start gap-3">
         <div className="relative">
-          <Avatar src={avatar} className={`w-10 h-10 ${colors.bg_color}`} />
+          <Avatar
+            src={avatar}
+            className={`min-w-10 min-h-10 ${colors.bg_color}`}
+          />
 
           {reaction && (
             <button

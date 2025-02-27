@@ -64,11 +64,11 @@ export function NewPost() {
       {open && (
         <div
           onClick={handleClose}
-          className="absolute inset-0 z-10 flex justify-center bg-black/25 py-24"
+          className="absolute inset-0 z-10 flex justify-center bg-black/25 px-4 py-24 sm:px-8"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-1/2 h-96 rounded-lg bg-zinc-800"
+            className="xl:w-1/2 lg:w-10/12 w-full h-96 rounded-lg bg-zinc-800"
           >
             <div className="bg-zinc-900 p-3 rounded-t-lg">
               <h1 className="text-zinc-300 text-sm font-semibold text-center">
