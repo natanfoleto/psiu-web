@@ -108,7 +108,7 @@ export function PostPreview({
 
         <div
           onClick={(e) => e.stopPropagation()}
-          className="w-[1280px] flex flex-col rounded-lg bg-zinc-800 lg:flex-row"
+          className="w-[1280px] flex flex-col justify-between rounded-lg bg-zinc-800 lg:flex-row"
         >
           <div
             className="
@@ -127,7 +127,7 @@ export function PostPreview({
               lg:w-7/12
             "
           >
-            <p className="flex items-center justify-center text-zinc-300 overflow-y-auto h-full lg:h-full">
+            <p className="flex items-center justify-center text-sm text-zinc-300 overflow-y-auto h-full lg:h-full lg:text-base">
               {post.content}
             </p>
 
@@ -135,15 +135,15 @@ export function PostPreview({
               <button
                 onClick={() => handleDeleteReaction(reaction.id)}
                 title="Clique para remover sua reação"
-                className="absolute left-1/2 -translate-x-1/2 bottom-2 text-zinc-400 text-sm lg:bottom-7"
+                className="absolute left-1/2 -translate-x-1/2 bottom-2 text-zinc-400 text-xs lg:text-sm lg:bottom-7"
               >
                 Você reagiu com {REACTION_LIST[reaction.type].icon}
               </button>
             )}
           </div>
 
-          <div className="flex flex-col w-full bg-zinc-950 rounded-r-lg lg:w-5/12 h-2/3 lg:h-full">
-            <div className="flex justify-between border-b-[1px] border-zinc-900 p-6">
+          <div className="flex flex-col w-full bg-zinc-950 rounded-b-lg lg:rounded-l-none lg:rounded-r-lg lg:w-5/12 h-2/3 lg:h-full">
+            <div className="flex justify-between border-b-[1px] border-zinc-900 p-3 lg:p-6">
               <div className="flex items-center gap-3">
                 <Avatar
                   src={user?.avatar}
@@ -171,7 +171,7 @@ export function PostPreview({
             </div>
 
             <div
-              className="overflow-y-scroll overflow-x-hidden space-y-8 flex-1 border-b-[1px] border-zinc-900 p-6"
+              className="overflow-y-scroll overflow-x-hidden space-y-8 flex-1 border-b-[1px] border-zinc-900 p-3 lg:p-6"
               style={{ maxHeight: 'calc(100vh - 264px)' }}
             >
               {post.comments.map((comment) => (
@@ -190,7 +190,7 @@ export function PostPreview({
               ))}
             </div>
 
-            <div className="border-b-[1px] border-zinc-900 p-4">
+            <div className="border-b-[1px] border-zinc-900 p-3 pt-0 lg:p-4 lg:py-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-zinc-400">
                   <Reaction postId={post.id} className="size-5" />
