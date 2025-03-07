@@ -7,7 +7,7 @@ import {
   MessageCircleMore,
   Search,
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '@/contexts/auth'
 
@@ -16,10 +16,13 @@ import { SidebarLink } from './sidebar-link'
 
 export function Sidebar() {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const { student } = useAuth()
 
   const avatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${student?.name}`
+
+  const pathname = location.pathname
 
   return (
     <div>
@@ -80,19 +83,31 @@ export function Sidebar() {
 
       <div className="z-50 fixed bottom-0 left-0 right-0 h-12 flex items-center justify-around bg-zinc-900 2md:h-0">
         <button onClick={() => navigate('/')}>
-          <House className="text-zinc-400 size-5 2md:invisible visible" />
+          <House
+            strokeWidth={pathname === '/' ? 3 : 2}
+            className="text-zinc-300 size-5 2md:invisible visible"
+          />
         </button>
 
         <button onClick={() => navigate('/')}>
-          <Search className="text-zinc-400 size-5 2md:invisible visible" />
+          <Search
+            strokeWidth={pathname === '/search' ? 3 : 2}
+            className="text-zinc-300 size-5 2md:invisible visible"
+          />
         </button>
 
         <button onClick={() => navigate('/')}>
-          <Compass className="text-zinc-400 size-5 2md:invisible visible" />
+          <Compass
+            strokeWidth={pathname === '/explorer' ? 3 : 2}
+            className="text-zinc-300 size-5 2md:invisible visible"
+          />
         </button>
 
         <button onClick={() => navigate('/profile')}>
-          <CircleUserRound className="text-zinc-400 size-5 2md:invisible visible" />
+          <CircleUserRound
+            strokeWidth={pathname === '/profile' ? 3 : 2}
+            className="text-zinc-300 size-5 2md:invisible visible"
+          />
         </button>
       </div>
     </div>
