@@ -29,7 +29,7 @@ export function Profile() {
 
   return (
     <div className="w-full">
-      <div className="w-full h-screen px-16 py-8 space-y-8 overflow-y-auto">
+      <div className="w-full h-screen 2md:px-16 px-8 py-8 space-y-8 overflow-y-auto">
         <div className="flex items-center gap-4">
           <Avatar
             src={avatar}
@@ -68,7 +68,21 @@ export function Profile() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-4 gap-1 w-full border-t border-zinc-700 py-4">
+          <div
+            className="
+              grid 
+              lg:grid-cols-4 
+              2md:grid-cols-3 
+              sm:grid-cols-2 
+              grid-cols-1 
+              gap-1 
+              w-full 
+              border-t 
+              border-zinc-700 
+              pt-4
+              pb-12
+            "
+          >
             {postsByStudent.map((post) => (
               <div key={post.id} className="aspect-square">
                 <Post

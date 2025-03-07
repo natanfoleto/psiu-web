@@ -101,11 +101,11 @@ export function UpdateProfile({ open, setOpen }: UpdateProfileProps) {
     open && (
       <div
         onClick={setOpen}
-        className="absolute inset-0 z-10 flex justify-center bg-black/25 py-8"
+        className="absolute inset-0 z-10 flex justify-center bg-black/25 sm:p-8 p-4"
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className="relative w-1/2 rounded-lg bg-zinc-800 p-6"
+          className="relative lg:w-1/2 w-full rounded-lg bg-zinc-800 p-6 overflow-y-auto"
         >
           <X
             onClick={setOpen}

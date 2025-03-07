@@ -58,7 +58,7 @@ export function NewPost() {
   }, [open, handleEsc])
 
   return (
-    <div>
+    <div className="flex 2md:justify-start justify-center">
       <ButtonNewPost onClick={handleOpen} />
 
       {open && (

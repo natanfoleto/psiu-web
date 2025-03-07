@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        '2md': '896px',
+      },
       backgroundImage: {
         'sign-in': "url('./assets/bg-sign-in.jpg')",
       },

@@ -7,7 +7,7 @@ export function Home() {
   const { posts, page, last, onLoadMore } = usePost()
 
   return (
-    <div className="h-screen w-full px-16 pt-8 pb-12 space-y-12 overflow-y-auto">
+    <div className="h-screen w-full 2md:px-16 px-8 pt-8 pb-12 space-y-12 overflow-y-auto">
       <NewPost />
 
       <div className="flex flex-col items-center gap-12">

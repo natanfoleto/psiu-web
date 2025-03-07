@@ -60,8 +60,8 @@ export function Post({
   }
 
   return (
-    <div>
-      <div className="w-[464px]">
+    <div className="w-full flex justify-center">
+      <div className="w-full 2md:w-[464px]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar
@@ -69,11 +69,11 @@ export function Post({
               className={`size-10 object-cover ${colors.bg_color}`}
             />
 
-            <h1 className="text-zinc-300 text-sm font-semibold">
+            <h1 className="text-zinc-300 font-semibold 2md:text-sm text-xs">
               {isOwner ? `${student?.name} (você)` : adjective}
             </h1>
 
-            <time className="text-zinc-500 text-sm">
+            <time className="text-zinc-500 text-sm 2md:block hidden">
               {formatDistanceToNow(updatedAt || publishedAt, {
                 locale: ptBR,
               })}{' '}
